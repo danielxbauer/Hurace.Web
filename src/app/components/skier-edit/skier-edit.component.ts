@@ -44,10 +44,11 @@ export class SkierEditComponent implements OnInit {
                 image: null
             };
 
-            const skier = id !== 0
+            this.skier = id !== 0
                 ? await this.appStateService.getById(id)
                 : newSkier;
-            this.skierForm.patchValue(skier);
+
+            this.skierForm.patchValue(this.skier);
         })
     }
 
