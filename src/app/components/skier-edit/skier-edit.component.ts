@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from 'src/app/enums';
+import { getErrorMessage, hasError } from 'src/app/util/form-util';
 
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
@@ -58,7 +59,26 @@ export class SkierEditComponent implements OnInit {
             countryCode: ['', length(3, 3)],
             birthDate: [null], // TODO:
             isActive: [true],
-            image: [null] // TODO: maxlength!
+            image: [null, Validators.maxLength(500)] // TODO: maxlength!
         })
+    }
+
+    public save() {
+        this.skierForm.markAllAsTouched();
+        if (this.skierForm.valid) {
+            console.log("TODO: SAVE");
+        }
+    }
+
+    public remove() {
+        console.log("TODO: remove");
+    }
+
+    public hasError(formControlName: string) {
+        return hasError(this.skierForm, formControlName);
+    }
+
+    public getErrorMessage(formControlName: string) {
+        return getErrorMessage(this.skierForm, formControlName);
     }
 }

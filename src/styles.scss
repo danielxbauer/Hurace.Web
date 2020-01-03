@@ -15,8 +15,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mt-0 { margin-top: 0!important; }
 
 .mr-1 { margin-right: 5px; }
-.mr-2 { margin-right: 10px; }
-.mr-4 { margin-right: 20px; }
+.mr-2 { margin-right: 10px!important; }
+.mr-4 { margin-right: 20px!important; }
 
 .ml-1 { margin-left: 5px; }
 .ml-2 { margin-left: 10px; }
@@ -26,7 +26,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .flex-col { flex-direction: column; }
 .flex-1 { flex: 1; }
 .no-shrink { flex-shrink: 0; }
-.align-center { align-self: center; };
+.align-center { align-self: center; }
+.justify-content-end { justify-content: flex-end; }
 
 // Width / Height
 .mh-100 { max-height: 100%; }

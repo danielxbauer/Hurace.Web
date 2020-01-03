@@ -1,3 +1,9 @@
+:host {
+    display: block;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 mat-radio-group {
     padding-bottom: 1.25em;
 }
@@ -5,7 +11,6 @@ mat-radio-group {
 mat-checkbox {
     padding-bottom: 1.25em;
 }
-
 
 .skier-image {
     width: 150px;
