@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
-import { AppStateService } from 'src/app/services/app-state.service';
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from 'src/app/enums';
 import { getErrorMessage, hasError } from 'src/app/util/form-util';
-import { SkierApiService } from 'src/app/services/api';
+import { State } from 'src/app/reducers';
+import { getAllCountries } from 'src/app/actions/countries.actions';
+import { getSkierById, saveSkier, removeSkier } from 'src/app/actions';
+import { Observable } from 'rxjs';
 
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
@@ -17,7 +20,7 @@ export const length = (min: number, max: number) => [Validators.required, Valida
 })
 export class SkierEditComponent implements OnInit {
     public skier: SkierDto = null;
-    public countryCodes: string[] = [];
+    public countryCodes$: Observable<string[]>;
 
     public skierForm: FormGroup = null;
 
@@ -25,34 +28,28 @@ export class SkierEditComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private fb: FormBuilder,
-        private appStateService: AppStateService,
-        private skierApiService: SkierApiService
-    ) { }
+        private store: Store<State>
+    ) {
+        this.countryCodes$ = this.store.select(state => state.countryCodes);
+
+        this.store.select(state => state.skier.selected)
+            .subscribe(skier => {
+                this.skier = skier;
+
+                if (this.skier != null) {
+                    this.skierForm.patchValue(this.skier);
+                }
+            });
+    }
 
     ngOnInit() {
+        this.store.dispatch(getAllCountries());
+
         this.skierForm = this.initForm();
-
         this.route.params.subscribe(async params => {
-            this.countryCodes = await this.appStateService.getCountryCodes();
-
             const id = +params['id'];
-            const newSkier: SkierDto = {
-                id: 0,
-                firstName: '',
-                lastName: '',
-                gender: Gender.Male,
-                countryCode: this.countryCodes[0],
-                birthDate: null,
-                isActive: true,
-                image: null
-            };
-
-            this.skier = id !== 0
-                ? await this.appStateService.getById(id)
-                : newSkier;
-
-            this.skierForm.patchValue(this.skier);
-        })
+            this.store.dispatch(getSkierById({ id }));
+        });
     }
 
     private initForm() {
@@ -76,13 +73,16 @@ export class SkierEditComponent implements OnInit {
             };
 
             // TODO: Errorhandling
-            await this.skierApiService.save(skier).toPromise();
-            this.router.navigateByUrl(`/skiers/${skier.id}`);
+            this.store.dispatch(saveSkier(skier));
+
+            // await this.skierApiService.save(skier).toPromise();
+            // this.router.navigateByUrl(`/skiers/${skier.id}`);
         }
     }
 
     public remove() {
         console.log("TODO: remove");
+        this.store.dispatch(removeSkier({ id: this.skier.id }));
     }
 
     public hasError(formControlName: string) {

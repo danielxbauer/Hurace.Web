@@ -23,6 +23,10 @@ import { SkierListComponent } from './components/skier-list/skier-list.component
 import { LiveViewComponent } from './components/live-view/live-view.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
     declarations: [
@@ -50,7 +54,15 @@ import { NothingSelectedComponent } from './components/nothing-selected/nothing-
         MatRadioModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        StoreModule.forRoot(reducers, {
+            metaReducers,
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+            }
+        }),
+        EffectsModule.forRoot([AppEffects])
     ],
     providers: [
         MatNativeDateModule

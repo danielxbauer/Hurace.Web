@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { SkierDto } from '../../dtos';
-import { AppStateService } from 'src/app/services/app-state.service';
+import { State } from 'src/app/reducers';
+import { getAllSkiers } from 'src/app/actions';
 
 
 // TODO:
@@ -27,14 +29,16 @@ export class SkierListComponent implements OnInit {
         return this.skiers.filter(s => fullName(s).toLowerCase().includes(filter));
     }
 
-
     constructor(
         private router: Router,
-        private appStateService: AppStateService
-    ) { }
+        private store: Store<State>
+    ) {
+        store.select(s => s.skier.all)
+            .subscribe(skiers => this.skiers = skiers);
+    }
 
     async ngOnInit() {
-        this.skiers = await this.appStateService.getAll();
+        this.store.dispatch(getAllSkiers())
     }
 
     public new() {

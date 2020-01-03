@@ -20,7 +20,7 @@
 
     <mat-form-field>
         <mat-select placeholder="Country" formControlName="countryCode">
-            <mat-option *ngFor="let country of countryCodes" [value]="country">{{country}}</mat-option>
+            <mat-option *ngFor="let country of countryCodes$ | async" [value]="country">{{country}}</mat-option>
         </mat-select>
         <mat-error *ngIf="hasError('countryCode')">{{ getErrorMessage('countryCode') }}</mat-error>
     </mat-form-field>
