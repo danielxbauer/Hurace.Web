@@ -1,38 +1,38 @@
-<h1 class="mt-0">{{ id == 0 ? 'New Skier' : 'Edit Skier' }}</h1>
+<h1 class="mt-0">{{ skier?.id == 0 ? 'New Skier' : 'Edit Skier' }}</h1>
 
-<div class="d-flex flex-col">
+<form class="d-flex flex-col" [formGroup]="skierForm" novalidate>
     <div class="d-flex">
         <mat-form-field class="flex-1 mr-2">
-            <input matInput placeholder="First Name">
+            <input matInput placeholder="First Name" formControlName="firstName">
         </mat-form-field>
 
         <mat-form-field class="flex-1 ml-2">
-            <input matInput placeholder="Last Name">
+            <input matInput placeholder="Last Name" formControlName="lastName">
         </mat-form-field>
     </div>
 
-    <mat-radio-group aria-label="Gender">
-        <mat-radio-button value="0" class="mr-4">Male</mat-radio-button>
-        <mat-radio-button value="1">Female</mat-radio-button>
+    <mat-radio-group aria-label="Gender" formControlName="gender">
+        <mat-radio-button [value]="0" class="mr-4">Male</mat-radio-button>
+        <mat-radio-button [value]="1">Female</mat-radio-button>
     </mat-radio-group>
 
     <mat-form-field>
-        <mat-select placeholder="Country">
-            <mat-option value="AUT">AUT</mat-option>
-            <mat-option value="GER">GER</mat-option>
-            <mat-option value="USA">USA</mat-option>
+        <mat-select placeholder="Country" formControlName="countryCode">
+            <mat-option *ngFor="let country of countryCodes" [value]="country">{{country}}</mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <input matInput [matDatepicker]="picker" placeholder="Birth Date" formControlName="birthDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-checkbox>Has active career</mat-checkbox>
+    <mat-checkbox formControlName="isActive">Has active career</mat-checkbox>
 
     <mat-form-field>
-        <input matInput placeholder="Image URL">
+        <input matInput placeholder="Image URL" formControlName="image">
     </mat-form-field>
-</div>
+
+    <img *ngIf="skierForm.get('image').value" class="skier-image rounded align-center" [src]="skierForm.get('image').value" alt="Skier Image" />
+</form>

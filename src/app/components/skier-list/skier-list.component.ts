@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SkierService } from '../../services/skier.service';
 import { Gender } from '../../enums/gender.enum';
 import { SkierDto } from '../../dtos';
+import { AppStateService } from 'src/app/services/app-state.service';
 
 @Component({
     selector: 'app-skier-list',
@@ -13,11 +13,11 @@ export class SkierListComponent implements OnInit {
     public skiers: SkierDto[] = [];
 
     constructor(
-        private skierService: SkierService
+        private appStateService: AppStateService
     ) { }
 
     async ngOnInit() {
-        this.skiers = await this.skierService.getAll(Gender.Male).toPromise();
+        this.skiers = await this.appStateService.getAll();
         console.table(this.skiers);
     }
 }

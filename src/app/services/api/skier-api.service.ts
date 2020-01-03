@@ -5,12 +5,13 @@ import { map, catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { SkierDto } from 'src/app/dtos';
-import { Gender } from '../enums';
+import { Gender } from '../../enums';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SkierService {
+export class SkierApiService {
+    private skiers: SkierDto[] = [];
 
     constructor(
         private http: HttpClient
@@ -22,10 +23,16 @@ export class SkierService {
         return this.http.get<SkierDto[]>(`${environment.apiBaseUrl}/api/skier/${gender}/active/${isActive}`)
             .pipe(
                 map(skiers => {
+                    this.skiers = skiers; // TODO:
                     skiers.forEach(s => s.birthDate = new Date(s.birthDate));
                     return skiers;
                 }),
                 catchError(this.errorHandler)
             );
+    }
+
+    // TODO: anders machen
+    public getById(id: number) {
+        return this.skiers.find(s => s.id === id);
     }
 }
