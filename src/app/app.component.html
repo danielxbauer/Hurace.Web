@@ -1,7 +1,12 @@
-<h1>Angular Router</h1>
-<nav>
-    <a routerLink="/skiers" routerLinkActive="active">Skiers</a>
-    <a routerLink="/live" routerLinkActive="active">Live View</a>
+<mat-toolbar color="primary">
+    <span>Hurace</span>
+</mat-toolbar>
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        {{link.label}}
+    </a>
 </nav>
 
 <router-outlet></router-outlet>

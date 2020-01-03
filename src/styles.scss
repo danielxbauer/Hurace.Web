@@ -3,4 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+// Padding & Margin
 .pr-5 { padding-right: 5px; }
+
+// Display & Width / Height
+.d-flex { display: flex; }
+.flex-1 { flex: 1; }
+.max-width-200 { max-width: 400px; }

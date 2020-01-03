@@ -1,13 +1,14 @@
-<h1>Test Material Design</h1>
+<div class="d-flex">
+    <div class="flex-1 max-width-200">
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let skier of skiers" routerLink="{{ skier.id }}" routerLinkActive="active">
+                <b class="pr-5">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
+            </a>
+        </mat-nav-list>
+    </div>
 
-<div class="example-button-row">
-    <button mat-raised-button>Basic</button>
-    <button mat-raised-button color="primary">Primary</button>
-    <button mat-raised-button color="accent">Accent</button>
+
+    <div class="flex-1">
+        <router-outlet></router-outlet>
+    </div>
 </div>
-
-<mat-nav-list>
-    <a mat-list-item *ngFor="let skier of skiers">
-        <b class="pr-5">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
-    </a>
-</mat-nav-list>
