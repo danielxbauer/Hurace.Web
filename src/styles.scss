@@ -8,9 +8,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .p-1 { padding: 5px; }
 .p-2 { padding: 10px; }
 .p-3 { padding: 15px; }
+.pt-0 { padding-top: 0!important; }
 .pr-1 { padding-right: 5px; }
 
 .m-0 { margin: 0!important; }
+.mt-0 { margin-top: 0!important; }
+
+.mr-1 { margin-right: 5px; }
+.mr-2 { margin-right: 10px; }
+.mr-4 { margin-right: 20px; }
+
+.ml-1 { margin-left: 5px; }
+.ml-2 { margin-left: 10px; }
 
 // Display
 .d-flex { display: flex; }

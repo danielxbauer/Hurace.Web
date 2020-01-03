@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { SkierListComponent } from './components/skier-list/skier-list.component';
 import { LiveViewComponent } from './components/live-view/live-view.component';
@@ -30,13 +37,23 @@ import { NothingSelectedComponent } from './components/nothing-selected/nothing-
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        MatTabsModule
+        MatTabsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule
     ],
-    providers: [],
+    providers: [
+        MatNativeDateModule
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
