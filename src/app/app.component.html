@@ -1,13 +1,7 @@
-<h1>Test Material Design</h1>
+<h1>Angular Router</h1>
+<nav>
+    <a routerLink="/skiers" routerLinkActive="active">Skiers</a>
+    <a routerLink="/live" routerLinkActive="active">Live View</a>
+</nav>
 
-<div class="example-button-row">
-    <button mat-raised-button>Basic</button>
-    <button mat-raised-button color="primary">Primary</button>
-    <button mat-raised-button color="accent">Accent</button>
-</div>
-
-<mat-nav-list>
-    <a mat-list-item *ngFor="let skier of skiers">
-        <b class="pr-5">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
-    </a>
-</mat-nav-list>
+<router-outlet></router-outlet>

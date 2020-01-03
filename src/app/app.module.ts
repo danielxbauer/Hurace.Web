@@ -9,10 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { SkierListComponent } from './skier-list/skier-list.component';
+import { LiveViewComponent } from './live-view/live-view.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        SkierListComponent,
+        LiveViewComponent
     ],
     imports: [
         BrowserModule,
