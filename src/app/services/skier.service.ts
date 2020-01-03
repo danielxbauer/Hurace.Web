@@ -21,6 +21,10 @@ export class SkierService {
     public getAll(gender: Gender, isActive: boolean = true): Observable<SkierDto[]> {
         return this.http.get<SkierDto[]>(`${environment.apiBaseUrl}/api/skier/${gender}/active/${isActive}`)
             .pipe(
+                map(skiers => {
+                    skiers.forEach(s => s.birthDate = new Date(s.birthDate));
+                    return skiers;
+                }),
                 catchError(this.errorHandler)
             );
     }

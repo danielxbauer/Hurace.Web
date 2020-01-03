@@ -1,14 +1,14 @@
 <div class="d-flex">
     <div class="flex-1 max-width-200">
-        <mat-nav-list>
+        <mat-nav-list class="p-0">
             <a mat-list-item *ngFor="let skier of skiers" routerLink="{{ skier.id }}" routerLinkActive="active">
-                <b class="pr-5">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
+                <b class="pr-1">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
             </a>
         </mat-nav-list>
     </div>
 
 
-    <div class="flex-1">
+    <div class="flex-1 p-3">
         <router-outlet></router-outlet>
     </div>
 </div>

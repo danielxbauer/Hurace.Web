@@ -4,7 +4,13 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // Padding & Margin
-.pr-5 { padding-right: 5px; }
+.p-0 { padding: 0!important; }
+.p-1 { padding: 5px; }
+.p-2 { padding: 10px; }
+.p-3 { padding: 15px; }
+.pr-1 { padding-right: 5px; }
+
+.m-0 { margin: 0!important; }
 
 // Display & Width / Height
 .d-flex { display: flex; }

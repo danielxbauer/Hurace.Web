@@ -7,7 +7,8 @@ import { SkierEditComponent } from './skier-edit/skier-edit.component';
 const routes: Routes = [
     { path: '', redirectTo: 'skiers', pathMatch: 'full' },
     { path: 'skiers', component: SkierListComponent, children: [
-        { path: ':id', component: SkierEditComponent }
+        { path: ':id', component: SkierEditComponent },
+        // TODO: Nothing selected { path: '**', component: LiveViewComponent }
     ] },
     { path: 'live', component: LiveViewComponent },
     { path: '**', redirectTo: 'skiers' },
