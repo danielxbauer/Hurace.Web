@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -11,7 +11,12 @@ import { Gender } from '../../enums';
     providedIn: 'root'
 })
 export class SkierApiService {
-    private skiers: SkierDto[] = [];
+    private baseUrl = `${environment.apiBaseUrl}/api/skier`;
+    private httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        })
+    };
 
     constructor(
         private http: HttpClient
@@ -20,10 +25,9 @@ export class SkierApiService {
     private errorHandler = (error: Error) => Observable.throw(error); // TODO: better
 
     public getAll(gender: Gender, isActive: boolean = true): Observable<SkierDto[]> {
-        return this.http.get<SkierDto[]>(`${environment.apiBaseUrl}/api/skier/${gender}/active/${isActive}`)
+        return this.http.get<SkierDto[]>(`${this.baseUrl}/${gender}/active/${isActive}`)
             .pipe(
                 map(skiers => {
-                    this.skiers = skiers; // TODO:
                     skiers.forEach(s => s.birthDate = new Date(s.birthDate));
                     return skiers;
                 }),
@@ -31,8 +35,7 @@ export class SkierApiService {
             );
     }
 
-    // TODO: anders machen
-    public getById(id: number) {
-        return this.skiers.find(s => s.id === id);
+    public save(skier: SkierDto) {
+        return this.http.post(this.baseUrl, skier, this.httpOptions);
     }
 }

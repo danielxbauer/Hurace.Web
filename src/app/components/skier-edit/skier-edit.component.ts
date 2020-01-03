@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { AppStateService } from 'src/app/services/app-state.service';
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from 'src/app/enums';
 import { getErrorMessage, hasError } from 'src/app/util/form-util';
+import { SkierApiService } from 'src/app/services/api';
 
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
@@ -21,9 +22,11 @@ export class SkierEditComponent implements OnInit {
     public skierForm: FormGroup = null;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private fb: FormBuilder,
-        private appStateService: AppStateService
+        private appStateService: AppStateService,
+        private skierApiService: SkierApiService
     ) { }
 
     ngOnInit() {
@@ -64,10 +67,17 @@ export class SkierEditComponent implements OnInit {
         })
     }
 
-    public save() {
+    public async save() {
         this.skierForm.markAllAsTouched();
         if (this.skierForm.valid) {
-            console.log("TODO: SAVE");
+            const skier = {
+                ...this.skier,
+                ...this.skierForm.getRawValue()
+            };
+
+            // TODO: Errorhandling
+            await this.skierApiService.save(skier).toPromise();
+            this.router.navigateByUrl(`/skiers/${skier.id}`);
         }
     }
 

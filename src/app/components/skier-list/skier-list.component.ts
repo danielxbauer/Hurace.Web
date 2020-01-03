@@ -16,9 +16,13 @@ const fullName = (s: SkierDto) => `${s.firstName} ${s.lastName}`;
 export class SkierListComponent implements OnInit {
     private skiers: SkierDto[] = [];
 
-    public filter = "Abdul";
+    public filter = null;
 
     public get filteredSkiers(): SkierDto[] {
+        if (this.filter == null) {
+            return this.skiers;
+        }
+
         const filter = this.filter.toLowerCase();
         return this.skiers.filter(s => fullName(s).toLowerCase().includes(filter));
     }
@@ -31,7 +35,6 @@ export class SkierListComponent implements OnInit {
 
     async ngOnInit() {
         this.skiers = await this.appStateService.getAll();
-        console.table(this.skiers);
     }
 
     public new() {
