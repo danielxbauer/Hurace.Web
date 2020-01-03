@@ -12,16 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { SkierListComponent } from './skier-list/skier-list.component';
-import { LiveViewComponent } from './live-view/live-view.component';
-import { SkierEditComponent } from './skier-edit/skier-edit.component';
+import { SkierListComponent } from './components/skier-list/skier-list.component';
+import { LiveViewComponent } from './components/live-view/live-view.component';
+import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
+import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SkierListComponent,
         LiveViewComponent,
-        SkierEditComponent
+        SkierEditComponent,
+        NothingSelectedComponent
     ],
     imports: [
         BrowserModule,

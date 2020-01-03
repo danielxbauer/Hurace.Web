@@ -1,8 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="no-shrink">
     <span>Hurace</span>
 </mat-toolbar>
 
-<nav mat-tab-nav-bar>
+<nav mat-tab-nav-bar class="no-shrink">
     <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
         [active]="rla.isActive">
         {{link.label}}

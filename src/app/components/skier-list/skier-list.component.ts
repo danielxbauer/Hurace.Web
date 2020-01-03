@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SkierService } from '../services/skier.service';
-import { Gender } from '../enums/gender.enum';
-import { SkierDto } from '../dtos';
+import { SkierService } from '../../services/skier.service';
+import { Gender } from '../../enums/gender.enum';
+import { SkierDto } from '../../dtos';
 
 @Component({
     selector: 'app-skier-list',

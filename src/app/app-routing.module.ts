@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SkierListComponent } from './skier-list/skier-list.component';
-import { LiveViewComponent } from './live-view/live-view.component';
-import { SkierEditComponent } from './skier-edit/skier-edit.component';
+import { SkierListComponent } from './components/skier-list/skier-list.component';
+import { LiveViewComponent } from './components/live-view/live-view.component';
+import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
+import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'skiers', pathMatch: 'full' },
     { path: 'skiers', component: SkierListComponent, children: [
         { path: ':id', component: SkierEditComponent },
-        // TODO: Nothing selected { path: '**', component: LiveViewComponent }
+        { path: '**', component: NothingSelectedComponent }
     ] },
     { path: 'live', component: LiveViewComponent },
     { path: '**', redirectTo: 'skiers' },
