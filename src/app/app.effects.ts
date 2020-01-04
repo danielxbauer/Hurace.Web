@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap, switchMap } from 'rxjs/operators';
 import { SkierService, CountryService } from './services';
 import { Gender } from './enums';
-import { getAllSkiers, getAllSkiersError, getAllSkiersSuccess, getAllCountries, getAllCountriesSuccess, getAllCountriesError, newSkier, saveSkier, saveSkierError, saveSkierSuccess, getSkierById, getSkierByIdSuccess, getSkierByIdError } from './actions';
+import { getAllSkiers, getAllSkiersError, getAllSkiersSuccess, getAllCountries, getAllCountriesSuccess, getAllCountriesError, newSkier, saveSkier, saveSkierError, saveSkierSuccess, getSkierById, getSkierByIdSuccess, getSkierByIdError, selectSkier } from './actions';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -19,16 +19,21 @@ export class AppEffects {
         ofType(saveSkier),
         mergeMap(action => this.skierService.save(action.skier)
             .pipe(
-                switchMap(id => [
-                    getAllSkiers(),
-                    saveSkierSuccess({ id })
-                ]),
+                map(id => saveSkierSuccess({ id })),
                 catchError(() => of(saveSkierError))
             ))
     ));
 
     saveSkierSuccess$ = createEffect(() => this.actions$.pipe(
         ofType(saveSkierSuccess),
+        switchMap(action => [
+            getAllSkiers(),
+            selectSkier({ id: action.id })
+        ])
+    ));
+
+    selectSkier$ = createEffect(() => this.actions$.pipe(
+        ofType(selectSkier),
         tap(action => this.router.navigateByUrl(`skiers/${action.id}`))
     ), { dispatch: false });
 

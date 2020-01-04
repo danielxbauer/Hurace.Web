@@ -17,3 +17,4 @@ export const saveSkierError = createAction('[Skier] Save Error');
 export const removeSkier = createAction('[Skier] Remove', idParam);
 
 export const newSkier = createAction('[Skier] New');
+export const selectSkier = createAction('[Skier] Select', idParam);
