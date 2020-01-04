@@ -7,6 +7,13 @@ export const getAllSkiersSuccess = createAction('[Skier] GetAll Success', props<
 export const getAllSkiersError = createAction('[Skier] GetAll Error');
 
 export const getSkierById = createAction('[Skier] GetById', idParam);
+export const getSkierByIdSuccess = createAction('[Skier] GetById Success', props<{ skier: SkierDto }>());
+export const getSkierByIdError = createAction('[Skier] GetById Error');
 
 export const saveSkier = createAction('[Skier] Save', props<{ skier: SkierDto }>());
+export const saveSkierSuccess = createAction('[Skier] Save Success');
+export const saveSkierError = createAction('[Skier] Save Error');
+
 export const removeSkier = createAction('[Skier] Remove', idParam);
+
+export const newSkier = createAction('[Skier] New');

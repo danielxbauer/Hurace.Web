@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { SkierDto } from '../../dtos';
 import { State } from 'src/app/reducers';
-import { getAllSkiers } from 'src/app/actions';
+import { getAllSkiers, newSkier } from 'src/app/actions';
 
 
 // TODO:
@@ -42,6 +42,6 @@ export class SkierListComponent implements OnInit {
     }
 
     public new() {
-        this.router.navigate(['skiers/0']);
+        this.store.dispatch(newSkier());
     }
 }

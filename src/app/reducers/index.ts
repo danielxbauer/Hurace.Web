@@ -19,5 +19,12 @@ export const reducers: ActionReducerMap<State> = {
     countryCodes: countriesReducer
 };
 
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+    return function(state, action) {
+      console.log(action);
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+      return reducer(state, action);
+    };
+  }
+
+export const metaReducers: MetaReducer<State>[] = !environment.production ? [debug] : [];

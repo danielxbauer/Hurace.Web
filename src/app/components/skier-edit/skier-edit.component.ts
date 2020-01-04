@@ -13,6 +13,17 @@ import { Observable } from 'rxjs';
 
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
+const newSkier: SkierDto = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    gender: Gender.Male,
+    countryCode: null,
+    birthDate: null,
+    isActive: true,
+    image: null
+};
+
 @Component({
     selector: 'app-skier-edit',
     templateUrl: './skier-edit.component.html',
@@ -34,18 +45,18 @@ export class SkierEditComponent implements OnInit {
 
         this.store.select(state => state.skier.selected)
             .subscribe(skier => {
-                this.skier = skier;
+                this.skier = skier != null
+                    ? skier
+                    : newSkier;
 
-                if (this.skier != null) {
-                    this.skierForm.patchValue(this.skier);
-                }
+                this.skierForm = this.initForm();
+                this.skierForm.patchValue(this.skier);
             });
     }
 
     ngOnInit() {
         this.store.dispatch(getAllCountries());
 
-        this.skierForm = this.initForm();
         this.route.params.subscribe(async params => {
             const id = +params['id'];
             this.store.dispatch(getSkierById({ id }));
@@ -67,16 +78,13 @@ export class SkierEditComponent implements OnInit {
     public async save() {
         this.skierForm.markAllAsTouched();
         if (this.skierForm.valid) {
-            const skier = {
+            const skier: SkierDto = {
                 ...this.skier,
                 ...this.skierForm.getRawValue()
             };
 
             // TODO: Errorhandling
-            this.store.dispatch(saveSkier(skier));
-
-            // await this.skierApiService.save(skier).toPromise();
-            // this.router.navigateByUrl(`/skiers/${skier.id}`);
+            this.store.dispatch(saveSkier({ skier }));
         }
     }
 

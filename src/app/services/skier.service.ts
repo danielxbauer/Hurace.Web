@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from '../enums';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +21,12 @@ export class SkierService {
         private http: HttpClient
     ) { }
 
-    public getAll(gender: Gender, isActive: boolean = true) {
-        return this.http.get<SkierDto[]>(`${this.baseUrl}/${gender}/active/${isActive}`);
+    public getAll() {
+        return this.http.get<SkierDto[]>(this.baseUrl);
+    }
+
+    public getById(id: number) {
+        return this.http.get<SkierDto>(`${this.baseUrl}/${id}`);
     }
 
     public save(skier: SkierDto) {
