@@ -11,7 +11,7 @@ export const getSkierByIdSuccess = createAction('[Skier] GetById Success', props
 export const getSkierByIdError = createAction('[Skier] GetById Error');
 
 export const saveSkier = createAction('[Skier] Save', props<{ skier: SkierDto }>());
-export const saveSkierSuccess = createAction('[Skier] Save Success');
+export const saveSkierSuccess = createAction('[Skier] Save Success', idParam);
 export const saveSkierError = createAction('[Skier] Save Error');
 
 export const removeSkier = createAction('[Skier] Remove', idParam);

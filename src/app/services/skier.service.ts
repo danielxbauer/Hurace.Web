@@ -30,6 +30,6 @@ export class SkierService {
     }
 
     public save(skier: SkierDto) {
-        return this.http.post(this.baseUrl, skier, this.httpOptions);
+        return this.http.post<number>(this.baseUrl, skier, this.httpOptions);
     }
 }

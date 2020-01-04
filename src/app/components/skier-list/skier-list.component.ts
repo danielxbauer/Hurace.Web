@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { SkierDto } from '../../dtos';
@@ -30,7 +30,7 @@ export class SkierListComponent implements OnInit {
     }
 
     constructor(
-        private router: Router,
+        private route: ActivatedRoute,
         private store: Store<State>
     ) {
         store.select(s => s.skier.all)
@@ -38,7 +38,7 @@ export class SkierListComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.store.dispatch(getAllSkiers())
+        this.store.dispatch(getAllSkiers());
     }
 
     public new() {
