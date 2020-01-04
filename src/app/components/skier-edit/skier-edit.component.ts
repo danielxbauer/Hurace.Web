@@ -10,19 +10,9 @@ import { State } from 'src/app/reducers';
 import { getAllCountries } from 'src/app/actions/countries.actions';
 import { getSkierById, saveSkier, removeSkier } from 'src/app/actions';
 import { Observable } from 'rxjs';
+import { newSkier } from 'src/app/util';
 
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
-
-const newSkier: SkierDto = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    gender: Gender.Male,
-    countryCode: null,
-    birthDate: null,
-    isActive: true,
-    image: null
-};
 
 @Component({
     selector: 'app-skier-edit',
@@ -47,7 +37,7 @@ export class SkierEditComponent implements OnInit {
             .subscribe(skier => {
                 this.skier = skier != null
                     ? skier
-                    : newSkier;
+                    : newSkier();
 
                 this.skierForm = this.initForm();
                 this.skierForm.patchValue(this.skier);
@@ -89,7 +79,6 @@ export class SkierEditComponent implements OnInit {
     }
 
     public remove() {
-        console.log("TODO: remove");
         this.store.dispatch(removeSkier({ id: this.skier.id }));
     }
 

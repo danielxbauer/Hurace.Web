@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { SkierDto } from '../../dtos';
 import { State } from 'src/app/reducers';
 import { getAllSkiers, newSkier } from 'src/app/actions';
-
-
-// TODO:
-const fullName = (s: SkierDto) => `${s.firstName} ${s.lastName}`;
+import { fullName } from 'src/app/util';
 
 @Component({
     selector: 'app-skier-list',
@@ -17,6 +14,9 @@ const fullName = (s: SkierDto) => `${s.firstName} ${s.lastName}`;
 })
 export class SkierListComponent implements OnInit {
     private skiers: SkierDto[] = [];
+
+    public isLoading$: Observable<boolean>;
+    public hasError$: Observable<boolean>;
 
     public filter = null;
 
@@ -30,11 +30,13 @@ export class SkierListComponent implements OnInit {
     }
 
     constructor(
-        private route: ActivatedRoute,
         private store: Store<State>
     ) {
         store.select(s => s.skier.all)
             .subscribe(skiers => this.skiers = skiers);
+
+        this.isLoading$ = store.select(s => s.skier.isLoading);
+        this.hasError$ = store.select(s => s.skier.isError);
     }
 
     async ngOnInit() {

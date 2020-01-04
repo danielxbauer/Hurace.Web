@@ -5,11 +5,24 @@
         </mat-form-field>
     </div>
 
-    <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
-        <a mat-list-item *ngFor="let skier of filteredSkiers" routerLink="{{ skier.id }}" routerLinkActive="active">
-            <b class="pr-1">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
-        </a>
-    </mat-nav-list>
+    <div *ngIf="isLoading$ | async; else skierList"
+         class="d-flex flex-1 align-center p-4">
+        <mat-progress-spinner
+            diameter="40"
+            mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div *ngIf="hasError$ | async">
+        ERROR WHILE LOADING :(
+    </div>
+
+    <ng-template #skierList>
+        <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
+            <a mat-list-item *ngFor="let skier of filteredSkiers" routerLink="{{ skier.id }}" routerLinkActive="active">
+                <b class="pr-1">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
+            </a>
+        </mat-nav-list>
+    </ng-template>
 
     <div class="d-flex justify-content-end p-2">
         <button mat-raised-button color="primary" (click)="new()">New</button>

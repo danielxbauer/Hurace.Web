@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { SkierListComponent } from './components/skier-list/skier-list.component';
 import { LiveViewComponent } from './components/live-view/live-view.component';
@@ -29,6 +30,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { SkierEffects } from './effects/skier.effects';
+import { CountriesEffects } from './effects/countries.effects';
 
 @NgModule({
     declarations: [
@@ -57,6 +60,7 @@ import { environment } from '../environments/environment';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
+        MatProgressSpinnerModule,
         StoreModule.forRoot(reducers, {
             metaReducers,
             runtimeChecks: {
@@ -64,7 +68,11 @@ import { environment } from '../environments/environment';
                 strictActionImmutability: true
             }
         }),
-        EffectsModule.forRoot([AppEffects]),
+        EffectsModule.forRoot([
+            AppEffects,
+            SkierEffects,
+            CountriesEffects
+        ]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],
     providers: [
