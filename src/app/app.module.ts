@@ -32,6 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { SkierEffects } from './effects/skier.effects';
 import { CountriesEffects } from './effects/countries.effects';
+import { LiveEffects } from './effects/live.effects';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,7 @@ import { CountriesEffects } from './effects/countries.effects';
         SkierListComponent,
         LiveViewComponent,
         SkierEditComponent,
-        NothingSelectedComponent
+        NothingSelectedComponent // TODO: remove?
     ],
     imports: [
         BrowserModule,
@@ -71,7 +72,8 @@ import { CountriesEffects } from './effects/countries.effects';
         EffectsModule.forRoot([
             AppEffects,
             SkierEffects,
-            CountriesEffects
+            CountriesEffects,
+            LiveEffects
         ]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],

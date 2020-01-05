@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap, switchMap } from 'rxjs/operators';
 import { SkierService, } from '../services';
-import { getAllSkiers, getAllSkiersError, getAllSkiersSuccess, getAllCountries, newSkier, saveSkier, saveSkierError, saveSkierSuccess, getSkierById, getSkierByIdSuccess, getSkierByIdError, selectSkier, removeSkier } from '../actions';
+import { getAllSkiers, getAllSkiersError, getAllSkiersSuccess, newSkier, saveSkier, saveSkierError, saveSkierSuccess, getSkierById, getSkierByIdSuccess, getSkierByIdError, selectSkier, removeSkier } from '../actions';
 import { Router } from '@angular/router';
 import { TypedAction } from '@ngrx/store/src/models';
 

@@ -5,11 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './nothing-selected.component.html',
   styleUrls: ['./nothing-selected.component.scss']
 })
-export class NothingSelectedComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class NothingSelectedComponent {
 }

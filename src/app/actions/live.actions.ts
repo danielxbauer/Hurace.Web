@@ -14,3 +14,5 @@ export const getLiveRaceError = createAction('[Live] GetRace Error');
 export const getLiveStatistic = createAction('[Live] GetStatistic', props<{ id: number, runNumber: RunNumber, sensorAmount: number }>());
 export const getLiveStatisticSuccess = createAction('[Live] GetStatistic Success', hasData<RaceResultDto[]>());
 export const getLiveStatisticError = createAction('[Live] GetStatistic Error');
+
+export const selectLiveRace = createAction('[Live] Select', hasId);
