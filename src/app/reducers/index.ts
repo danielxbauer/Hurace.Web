@@ -8,14 +8,17 @@ import {
 import { environment } from '../../environments/environment';
 import { skierReducer, SkierState } from './skier.reducer';
 import { countriesReducer } from './countries.reducer';
+import { LiveState, liveReducer } from './live.reducer';
 
 export interface State {
     skier: SkierState,
+    live: LiveState,
     countryCodes: string[]
 }
 
 export const reducers: ActionReducerMap<State> = {
     skier: skierReducer,
+    live: liveReducer,
     countryCodes: countriesReducer
 };
 

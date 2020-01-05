@@ -80,7 +80,7 @@ export class SkierEditComponent implements OnInit {
                 };
 
                 // TODO: Errorhandling
-                this.store.dispatch(saveSkier({ skier }));
+                this.store.dispatch(saveSkier({ payload: skier }));
             }
         }
     }

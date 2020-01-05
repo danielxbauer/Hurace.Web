@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { getAllCountriesSuccess, getAllCountriesError } from '../actions';
 
-export const initialState: string[] = [];
+const initialState: string[] = [];
 
+// TODO: redo
 const _countriesReducer = createReducer(initialState,
     on(getAllCountriesSuccess, (state, { payload }) => {
         return payload;

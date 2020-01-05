@@ -17,7 +17,7 @@ export class SkierEffects {
 
     saveSkier$ = createEffect(() => this.actions$.pipe(
         ofType(saveSkier),
-        mergeMap(action => this.skierService.save(action.skier)
+        mergeMap(action => this.skierService.save(action.payload)
             .pipe(
                 map(id => saveSkierSuccess({ id })),
                 catchError(() => of(saveSkierError()))
@@ -51,7 +51,7 @@ export class SkierEffects {
     getSkierById$ = createEffect(() => this.actions$.pipe(
         ofType(getSkierById),
         mergeMap(action => this.skierService.getById(action.id).pipe(
-            map(skier => getSkierByIdSuccess({ skier })),
+            map(skier => getSkierByIdSuccess({ payload: skier })),
             catchError(() => of(getSkierByIdError()))
         ))
     ));
@@ -60,5 +60,5 @@ export class SkierEffects {
         private router: Router,
         private actions$: Actions,
         private skierService: SkierService) {
-        }
+    }
 }

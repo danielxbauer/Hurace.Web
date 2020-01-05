@@ -10,7 +10,7 @@ export interface SkierState {
     selected: ApiResource<SkierDto>
 }
 
-export const initialState: SkierState = {
+const initialState: SkierState = {
     all: empty(),
     selected: empty()
 };
@@ -47,7 +47,7 @@ const _skierReducer = createReducer(initialState,
     on(getAllSkiersError, onGetAllSkiersError),
 
     on(getSkierById, onGetSkierById),
-    on(getSkierByIdSuccess, (state, { skier }) => onGetSkierByIdSuccess(state, skier)),
+    on(getSkierByIdSuccess, (state, { payload }) => onGetSkierByIdSuccess(state, payload)),
     on(getSkierByIdError, onGetSkierByIdError)
 );
 
