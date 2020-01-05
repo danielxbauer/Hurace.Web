@@ -1,4 +1,4 @@
-import { Gender, RaceType } from '../enums';
+import { Gender, RaceType, RaceState } from '../enums';
 
 export interface RaceDto {
     id: number,
@@ -9,5 +9,5 @@ export interface RaceDto {
     locationId: number,
     sensorAmount: number,
     gender: Gender,
-    // TODO: add? raceState: RaceState,
+    raceState: RaceState
 }
