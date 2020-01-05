@@ -1,28 +1,26 @@
-<div class="flex-1 d-flex flex-col mw-400px shadow">
-    <div class="d-flex flex-col px-2 pt-1">
-        <mat-form-field>
-            <input matInput placeholder="Search" [(ngModel)]="filter" autocomplete="off">
-        </mat-form-field>
-    </div>
+<div [ngSwitch]="skiers.kind" class="flex-1 d-flex flex-col mw-400px shadow">
 
-    <div *ngIf="isLoading$ | async; else skierList"
-         class="d-flex flex-1 align-center p-4">
-        <mat-progress-spinner
-            diameter="40"
-            mode="indeterminate"></mat-progress-spinner>
-    </div>
+    <ng-container *ngSwitchCase="'Data'">
+        <div class="d-flex flex-col px-2 pt-1">
+            <mat-form-field>
+                <input matInput placeholder="Search" [(ngModel)]="filter" autocomplete="off">
+            </mat-form-field>
+        </div>
 
-    <div *ngIf="hasError$ | async">
-        ERROR WHILE LOADING :(
-    </div>
-
-    <ng-template #skierList>
         <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
             <a mat-list-item *ngFor="let skier of filteredSkiers" routerLink="{{ skier.id }}" routerLinkActive="active">
                 <b class="pr-1">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}
             </a>
         </mat-nav-list>
-    </ng-template>
+    </ng-container>
+
+    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
+        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
+        ERROR WHILE LOADING :(
+    </div>
 
     <div class="d-flex justify-content-end p-2">
         <button mat-raised-button color="primary" (click)="new()">New</button>

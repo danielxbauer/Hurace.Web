@@ -11,7 +11,9 @@ import { getAllCountries } from 'src/app/actions/countries.actions';
 import { getSkierById, saveSkier, removeSkier } from 'src/app/actions';
 import { Observable } from 'rxjs';
 import { newSkier } from 'src/app/util';
+import { ApiResource } from 'src/app/models';
 
+// TODO: put somewhere else
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
 @Component({
@@ -20,13 +22,12 @@ export const length = (min: number, max: number) => [Validators.required, Valida
     styleUrls: ['./skier-edit.component.scss']
 })
 export class SkierEditComponent implements OnInit {
-    public skier: SkierDto = null;
+    public skier: ApiResource<SkierDto>;
     public countryCodes$: Observable<string[]>;
 
     public skierForm: FormGroup = null;
 
     constructor(
-        private router: Router,
         private route: ActivatedRoute,
         private fb: FormBuilder,
         private store: Store<State>
@@ -35,12 +36,16 @@ export class SkierEditComponent implements OnInit {
 
         this.store.select(state => state.skier.selected)
             .subscribe(skier => {
-                this.skier = skier != null
-                    ? skier
-                    : newSkier();
+                this.skier = skier;
 
-                this.skierForm = this.initForm();
-                this.skierForm.patchValue(this.skier);
+                if (skier.kind == 'Data') {
+                    const formValues = skier.data != null
+                        ? skier.data
+                        : newSkier();
+
+                    this.skierForm = this.initForm();
+                    this.skierForm.patchValue(formValues);
+                }
             });
     }
 
@@ -66,20 +71,24 @@ export class SkierEditComponent implements OnInit {
     }
 
     public async save() {
-        this.skierForm.markAllAsTouched();
-        if (this.skierForm.valid) {
-            const skier: SkierDto = {
-                ...this.skier,
-                ...this.skierForm.getRawValue()
-            };
+        if (this.skier.kind == 'Data') {
+            this.skierForm.markAllAsTouched();
+            if (this.skierForm.valid) {
+                const skier: SkierDto = {
+                    ...this.skier,
+                    ...this.skierForm.getRawValue()
+                };
 
-            // TODO: Errorhandling
-            this.store.dispatch(saveSkier({ skier }));
+                // TODO: Errorhandling
+                this.store.dispatch(saveSkier({ skier }));
+            }
         }
     }
 
     public remove() {
-        this.store.dispatch(removeSkier({ id: this.skier.id }));
+        if (this.skier.kind == 'Data') {
+            this.store.dispatch(removeSkier({ id: this.skier.data.id }));
+        }
     }
 
     public hasError(formControlName: string) {

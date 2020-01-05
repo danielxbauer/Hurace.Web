@@ -2,45 +2,53 @@ import { createReducer, on } from '@ngrx/store';
 import { state } from '@angular/animations';
 
 import { SkierDto } from '../dtos';
-import { getAllSkiersSuccess, getSkierByIdSuccess, getAllSkiers, getAllSkiersError } from '../actions';
+import { getAllSkiersSuccess, getSkierByIdSuccess, getAllSkiers, getAllSkiersError, getSkierByIdError, getSkierById } from '../actions';
+import { ApiResource, data, loading, error, empty } from '../models';
 
 export interface SkierState {
-    isLoading: boolean,
-    isError: false,
-    all: SkierDto[],
-    selected: SkierDto
+    all: ApiResource<SkierDto[]>,
+    selected: ApiResource<SkierDto>
 }
 
 export const initialState: SkierState = {
-    isLoading: false,
-    isError: false,
-    all: [],
-    selected: null
+    all: empty(),
+    selected: empty()
 };
 
+const onGetAllSkiers = (state: SkierState): SkierState => ({
+    ...state,
+    all: loading()
+});
+const onGetAllSkiersSuccess = (state: SkierState, skiers: SkierDto[]): SkierState => ({
+    ...state,
+    all: data(skiers),
+})
+const onGetAllSkiersError = (state: SkierState): SkierState => ({
+    ...state,
+    all: error()
+});
+
+const onGetSkierById = (state: SkierState): SkierState => ({
+    ...state,
+    selected: loading()
+});
+const onGetSkierByIdSuccess = (state: SkierState, skier: SkierDto): SkierState => ({
+    ...state,
+    selected: data(skier)
+});
+const onGetSkierByIdError = (state: SkierState): SkierState => ({
+    ...state,
+    selected: error()
+});
+
 const _skierReducer = createReducer(initialState,
-    on(getAllSkiers, state => ({
-        ...state,
-        isLoading: true,
-        isError: false
-    })),
+    on(getAllSkiers, onGetAllSkiers),
+    on(getAllSkiersSuccess, (state, { payload }) => onGetAllSkiersSuccess(state, payload)),
+    on(getAllSkiersError, onGetAllSkiersError),
 
-    on(getAllSkiersSuccess, (state, { payload }) => ({
-        ...state,
-        isLoading: false,
-        all: payload
-    })),
-
-    on(getAllSkiersError, state => ({
-        ...state,
-        isLoading: false,
-        isError: true
-    })),
-
-    on(getSkierByIdSuccess, (state, { skier }) => ({
-        ...state,
-        selected: skier
-    }))
+    on(getSkierById, onGetSkierById),
+    on(getSkierByIdSuccess, (state, { skier }) => onGetSkierByIdSuccess(state, skier)),
+    on(getSkierByIdError, onGetSkierByIdError)
 );
 
 export function skierReducer(state, action) {

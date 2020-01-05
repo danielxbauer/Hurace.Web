@@ -51,10 +51,10 @@ export class SkierEffects {
     getSkierById$ = createEffect(() => this.actions$.pipe(
         ofType(getSkierById),
         mergeMap(action => this.skierService.getById(action.id).pipe(
-            map(skier => getSkierByIdSuccess({ skier }),
-            catchError(() => of(getSkierByIdError())))
+            map(skier => getSkierByIdSuccess({ skier })),
+            catchError(() => of(getSkierByIdError()))
         ))
-    ))
+    ));
 
     constructor(
         private router: Router,
