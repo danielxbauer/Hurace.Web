@@ -4,7 +4,7 @@ export interface RaceDto {
     id: number,
     name: string,
     description: string,
-    raceDate: Date, // TODO:!
+    raceDate: Date,
     raceType: RaceType,
     locationId: number,
     sensorAmount: number,

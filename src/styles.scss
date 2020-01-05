@@ -46,3 +46,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // Shadows
 .shadow-sm { box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important; }
 .shadow { box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+
+// Font
+.text-bold { font-weight: 500; }
+.text-smaller { font-size: smaller; }

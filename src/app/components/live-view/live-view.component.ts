@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+// TODO: remove?
 @Component({
   selector: 'app-live-view',
   templateUrl: './live-view.component.html',

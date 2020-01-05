@@ -1,0 +1,25 @@
+<div [ngSwitch]="(races$ | async).kind" class="flex-1 d-flex flex-col mw-400px shadow">
+
+    <mat-nav-list *ngSwitchCase="'Data'" class="flex-1 mh-100 overflow-auto p-0">
+        <a mat-list-item *ngFor="let race of (races$ | async).data" routerLink="{{ race.id }}"
+            routerLinkActive="active">
+            <div>
+                <div class="text-bold">{{ race.name }}</div>
+                <div class="text-smaller">{{ race.raceDate | date:'shortDate' }} {{ formatGender(race.gender) }} {{ formatRaceType(race.raceType) }}
+                </div>
+            </div>
+        </a>
+    </mat-nav-list>
+
+    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
+        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
+        ERROR WHILE LOADING :(
+    </div>
+</div>
+
+<div class="flex-1 p-3">
+    <router-outlet></router-outlet>
+</div>

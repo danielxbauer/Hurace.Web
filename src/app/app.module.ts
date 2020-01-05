@@ -24,6 +24,7 @@ import { SkierListComponent } from './components/skier-list/skier-list.component
 import { LiveViewComponent } from './components/live-view/live-view.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
+import { LiveListComponent } from './components/live-list/live-list.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
@@ -40,7 +41,8 @@ import { LiveEffects } from './effects/live.effects';
         SkierListComponent,
         LiveViewComponent,
         SkierEditComponent,
-        NothingSelectedComponent // TODO: remove?
+        NothingSelectedComponent,
+        LiveListComponent // TODO: remove?
     ],
     imports: [
         BrowserModule,

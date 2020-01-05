@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
 import { SkierDto } from '../../dtos';
 import { State } from 'src/app/reducers';
@@ -38,7 +37,7 @@ export class SkierListComponent implements OnInit {
             .subscribe(skiers => this.skiers = skiers);
     }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.store.dispatch(getAllSkiers());
     }
 
