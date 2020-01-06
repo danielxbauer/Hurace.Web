@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,28 +21,19 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-
 import { SkierListComponent } from './components/skier-list/skier-list.component';
-import { LiveViewComponent } from './components/live-view/live-view.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
 import { LiveListComponent } from './components/live-list/live-list.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { SkierEffects } from './effects/skier.effects';
-import { CountriesEffects } from './effects/countries.effects';
-import { LiveEffects } from './effects/live.effects';
 import { LiveDetailComponent } from './components/live-detail/live-detail.component';
+import { CountriesState } from './states/countries.state';
+import { SkierState } from './states/skier.state';
+import { LiveState } from './states/live.state';
 
 @NgModule({
     declarations: [
         AppComponent,
         SkierListComponent,
-        LiveViewComponent, // TODO: remove?
         SkierEditComponent,
         NothingSelectedComponent,
         LiveListComponent,
@@ -54,6 +46,8 @@ import { LiveDetailComponent } from './components/live-detail/live-detail.compon
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
+
+        // Material Components
         MatButtonModule,
         MatListModule,
         MatIconModule,
@@ -68,20 +62,15 @@ import { LiveDetailComponent } from './components/live-detail/live-detail.compon
         MatCheckboxModule,
         MatProgressSpinnerModule,
         MatTableModule,
-        StoreModule.forRoot(reducers, {
-            metaReducers,
-            runtimeChecks: {
-                strictStateImmutability: true,
-                strictActionImmutability: true
-            }
-        }),
-        EffectsModule.forRoot([
-            AppEffects,
-            SkierEffects,
-            CountriesEffects,
-            LiveEffects
+
+        // Ngxs
+        NgxsModule.forRoot([
+            CountriesState,
+            SkierState,
+            LiveState
         ]),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+        NgxsReduxDevtoolsPluginModule.forRoot(),
+        NgxsLoggerPluginModule.forRoot(),
     ],
     providers: [
         MatNativeDateModule

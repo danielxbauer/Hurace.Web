@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from 'src/app/enums';
-import { getErrorMessage, hasError } from 'src/app/util/form-util';
-import { State } from 'src/app/reducers';
-import { getAllCountries } from 'src/app/actions/countries.actions';
-import { getSkierById, saveSkier, removeSkier } from 'src/app/actions';
-import { Observable } from 'rxjs';
-import { newSkier } from 'src/app/util';
+import { getErrorMessage, hasError, newSkier } from 'src/app/util';
 import { ApiResource } from 'src/app/models';
+import { GetSkierById, GetAllCountries, SaveSkier, RemoveSkier } from 'src/app/actions';
 
 // TODO: put somewhere else
 export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
@@ -30,7 +27,7 @@ export class SkierEditComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private fb: FormBuilder,
-        private store: Store<State>
+        private store: Store
     ) {
         this.countryCodes$ = this.store.select(state => state.countryCodes);
 
@@ -50,11 +47,11 @@ export class SkierEditComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(getAllCountries());
+        this.store.dispatch(new GetAllCountries());
 
         this.route.params.subscribe(async params => {
             const id = +params['id'];
-            this.store.dispatch(getSkierById({ id }));
+            this.store.dispatch(new GetSkierById(id));
         });
     }
 
@@ -75,19 +72,19 @@ export class SkierEditComponent implements OnInit {
             this.skierForm.markAllAsTouched();
             if (this.skierForm.valid) {
                 const skier: SkierDto = {
-                    ...this.skier,
+                    ...this.skier.data,
                     ...this.skierForm.getRawValue()
                 };
 
                 // TODO: Errorhandling
-                this.store.dispatch(saveSkier({ payload: skier }));
+                this.store.dispatch(new SaveSkier(skier));
             }
         }
     }
 
     public remove() {
         if (this.skier.kind == 'Data') {
-            this.store.dispatch(removeSkier({ id: this.skier.data.id }));
+            this.store.dispatch(new RemoveSkier(this.skier.data.id));
         }
     }
 

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, Select } from '@ngxs/store';
 
-import { SkierDto } from '../../dtos';
-import { State } from 'src/app/reducers';
-import { getAllSkiers, newSkier } from 'src/app/actions';
+import { SkierDto } from 'src/app/dtos';
+import { GetAllSkiers, NewSkier } from 'src/app/actions';
 import { fullName } from 'src/app/util';
 import { ApiResource, data } from 'src/app/models';
 
@@ -31,17 +30,17 @@ export class SkierListComponent implements OnInit {
     }
 
     constructor(
-        private store: Store<State>
+        private store: Store
     ) {
         store.select(s => s.skier.all)
             .subscribe(skiers => this.skiers = skiers);
     }
 
     ngOnInit() {
-        this.store.dispatch(getAllSkiers());
+        this.store.dispatch(new GetAllSkiers());
     }
 
     public new() {
-        this.store.dispatch(newSkier());
+        this.store.dispatch(new NewSkier());
     }
 }

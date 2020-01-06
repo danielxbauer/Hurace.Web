@@ -1,5 +1,5 @@
 <div [ngSwitch]="(statistic$ | async).kind" class="flex-1 d-flex">
-    <div *ngSwitchCase="'Loading'">DATA</div>
+    <div *ngSwitchCase="'Loading'">LOADING</div>
 
     <table *ngSwitchCase="'Data'" mat-table [dataSource]="(statistic$ | async).data" class="flex-1 mat-elevation-z8">
         <ng-container matColumnDef="currentPosition">

@@ -9,11 +9,6 @@ import { SkierDto } from 'src/app/dtos';
 })
 export class SkierService {
     private baseUrl = `${environment.apiBaseUrl}/api/skier`;
-    private httpOptions = { // TODO: do i need this?
-        headers: new HttpHeaders({
-          'Content-Type':  'application/json'
-        })
-    };
 
     constructor(
         private http: HttpClient
@@ -28,6 +23,10 @@ export class SkierService {
     }
 
     public save(skier: SkierDto) {
-        return this.http.post<number>(this.baseUrl, skier, this.httpOptions);
+        return this.http.post<number>(this.baseUrl, skier);
+    }
+
+    public remove(id: number) {
+        return this.http.delete(`${this.baseUrl}/${id}`);
     }
 }

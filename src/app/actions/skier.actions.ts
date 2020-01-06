@@ -1,22 +1,24 @@
-import { createAction } from '@ngrx/store';
-import { SkierDto } from '../dtos';
-import { hasId, hasData } from '../util';
+import { SkierDto } from '../dtos/skier.dto';
 
-export const getAllSkiers = createAction('[Skier] GetAll');
-export const getAllSkiersSuccess = createAction('[Skier] GetAll Success', hasData<SkierDto[]>());
-export const getAllSkiersError = createAction('[Skier] GetAll Error');
+export class GetAllSkiers {
+    static readonly type = '[Skier] GetAll';
+}
 
-export const getSkierById = createAction('[Skier] GetById', hasId);
-export const getSkierByIdSuccess = createAction('[Skier] GetById Success', hasData<SkierDto>());
-export const getSkierByIdError = createAction('[Skier] GetById Error');
+export class GetSkierById {
+    static readonly type = '[Skier] GetById';
+    constructor(public id: number) { }
+}
 
-export const saveSkier = createAction('[Skier] Save', hasData<SkierDto>());
-export const saveSkierSuccess = createAction('[Skier] Save Success', hasId);
-export const saveSkierError = createAction('[Skier] Save Error');
+export class SaveSkier {
+    static readonly type = '[Skier] Save';
+    constructor(public skier: SkierDto) { }
+}
 
-export const removeSkier = createAction('[Skier] Remove', hasId);
-export const removeSkierSuccess = createAction('[Skier] Remove Success');
-export const removeSkierError = createAction('[Skier] Remove Error');
+export class RemoveSkier {
+    static readonly type = '[Skier] Remove';
+    constructor(public id: number) { }
+}
 
-export const newSkier = createAction('[Skier] New');
-export const selectSkier = createAction('[Skier] Select', hasId);
+export class NewSkier {
+    static readonly type = '[Skier] New';
+}

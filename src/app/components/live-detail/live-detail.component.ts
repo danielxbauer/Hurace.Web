@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { State } from 'src/app/reducers';
-import { getLiveRace } from 'src/app/actions/live.actions';
-import { RaceStatisticEntry } from 'src/app/dtos/race-statistic-entry.dto';
-import { ApiResource } from 'src/app/models';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+
+import { GetLiveRace, GetLiveStatistic } from 'src/app/actions';
+import { RaceStatisticEntry } from 'src/app/dtos';
+import { ApiResource } from 'src/app/models';
 
 @Component({
     selector: 'app-live-detail',
@@ -18,18 +18,18 @@ export class LiveDetailComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private store: Store<State>
+        private store: Store
     ) {
-        this.statistic$ = this.store.select(s => s.live.selected.statistic);
+        this.statistic$ = this.store.select(s => s.live.statistic);
     }
 
     ngOnInit() {
         this.route.params.subscribe(async params => {
             const id = +params['id'];
 
-            // this.store.dispatch(getAllSkiers());
-            this.store.dispatch(getLiveRace({ id }));
-            // this.store.dispatch(getLiveStatistic({ id: id, runNumber: 1 }));
+            // this.store.dispatch(getAllSkiers()); TODO:
+            this.store.dispatch(new GetLiveRace(id));
+            this.store.dispatch(new GetLiveStatistic(id, 1));
         });
     }
 }
