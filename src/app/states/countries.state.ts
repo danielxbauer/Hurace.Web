@@ -5,6 +5,8 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import { GetAllCountries } from '../actions';
 
+type Context = StateContext<CountriesStateModel>;
+
 export type CountriesStateModel = string[];
 const initialState: CountriesStateModel = [];
 
@@ -18,11 +20,11 @@ export class CountriesState {
     ) { }
 
     @Action(GetAllCountries)
-    getAllCountries({ setState }: StateContext<CountriesStateModel>) {
+    getAllCountries(context: Context) {
         return this.countryService.getCountryCodes().pipe(
-            tap(countries => setState(countries)),
+            tap(countries => context.setState(countries)),
             catchError(_ => {
-                setState([]);
+                context.setState([]);
                 return of([]);
             })
         );

@@ -1,4 +1,4 @@
-import { State, Action, StateContext, Select } from '@ngxs/store';
+import { State, Action, StateContext, Select, Selector } from '@ngxs/store';
 import { of } from 'rxjs';
 import { map, tap, catchError, mergeMap } from 'rxjs/operators';
 
@@ -27,6 +27,11 @@ export class SkierState {
         private skierService: SkierService
     ) { }
 
+    @Selector()
+    static getSkier(state: SkierStateModel) {
+        return state.all;
+    }
+
     @Action(GetAllSkiers)
     getAllSkier(context: Context) {
         context.patchState({ all: loading() });
@@ -37,8 +42,8 @@ export class SkierState {
                 return skiers;
             }),
             tap(skiers => context.patchState({ all: data(skiers) })),
-            catchError(_ => {
-                context.patchState({ all: error() })
+            catchError(e => {
+                context.patchState({ all: error(e) })
                 return of([]);
             })
         );
@@ -46,16 +51,24 @@ export class SkierState {
 
     @Action(GetSkierById)
     getSkierById(context: Context, action: GetSkierById) {
-        context.patchState({ selected: loading() })
+        // Alread loaded
+        const state = context.getState();
+        if (state.all.kind === 'Data') {
+            const skier = state.all.data.find(s => s.id == action.id);
+            context.patchState({ selected: data(skier) });
+            return;
+        }
 
+        // Load from api
+        context.patchState({ selected: loading() });
         return this.skierService.getById(action.id).pipe(
             map(skier => {
                 skier.birthDate = new Date(skier.birthDate);
                 return skier;
             }),
             tap(skier => context.patchState({ selected: data(skier) })),
-            catchError(_ => {
-                context.patchState({ selected: error() });
+            catchError(e => {
+                context.patchState({ selected: error(e) });
                 return of([]);
             })
         );
@@ -71,8 +84,8 @@ export class SkierState {
                 context.dispatch(new GetAllSkiers()),
                 context.dispatch(new GetSkierById(id))
             ]),
-            catchError(_ => {
-                context.patchState({ selected: error() });
+            catchError(e => {
+                context.patchState({ selected: error(e) });
                 return of([]);
             })
         );
@@ -87,8 +100,8 @@ export class SkierState {
             mergeMap(id => [
                 context.dispatch(new GetAllSkiers())
             ]),
-            catchError(_ => {
-                context.patchState({ selected: error() });
+            catchError(e => {
+                context.patchState({ selected: error(e) });
                 return of([]);
             })
         );

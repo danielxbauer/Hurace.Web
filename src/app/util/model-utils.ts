@@ -1,6 +1,5 @@
-import { SkierDto } from '../dtos';
+import { SkierDto, RaceStatisticEntry, RaceStatisticEntryDto, RaceDto } from '../dtos';
 import { Gender, RaceType } from '../enums';
-import { switchMap } from 'rxjs/operators';
 
 export const fullName = (s: SkierDto) => `${s.firstName} ${s.lastName}`;
 
@@ -32,3 +31,19 @@ export const formatRaceType = (raceType: RaceType) => {
         default: throw Error('RaceType not defined');
     }
 }
+
+export const mapStatisticDto = (dto: RaceStatisticEntryDto, skiers: SkierDto[]): RaceStatisticEntry => {
+    const skier = skiers.find(s => s.id === dto.skierId);
+    if (skier == null) {
+        throw Error('Skier not found');
+    }
+
+    return {
+        ...dto,
+        skierName: fullName(skier),
+        skierCountry: skier.countryCode
+    };
+}
+
+export const hasSecondRun = (r: RaceDto) =>
+    r.raceType === RaceType.Slalom || r.raceType === RaceType.GiantSlalom;

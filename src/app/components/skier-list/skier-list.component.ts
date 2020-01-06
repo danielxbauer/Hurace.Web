@@ -5,6 +5,7 @@ import { SkierDto } from 'src/app/dtos';
 import { GetAllSkiers, NewSkier } from 'src/app/actions';
 import { fullName } from 'src/app/util';
 import { ApiResource, data } from 'src/app/models';
+import { SkierState } from 'src/app/states/skier.state';
 
 @Component({
     selector: 'app-skier-list',

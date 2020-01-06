@@ -1,5 +1,10 @@
 import { RunNumber } from '../models';
 
+export class SelectLiveRace {
+    static readonly type = '[Live] Select';
+    constructor(public id: number) { }
+}
+
 export class GetLiveAllRaces {
     static readonly type = '[Live] GetRaces';
 }
