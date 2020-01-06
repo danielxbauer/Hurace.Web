@@ -2,13 +2,13 @@ import { RaceDto } from '../dtos/race.dto';
 import { ApiResource, data, loading, error, empty } from '../models';
 import { createReducer, on } from '@ngrx/store';
 import { getLiveRace, getLiveRaceSuccess, getLiveRaceError, getLiveStatistic, getLiveStatisticSuccess, getLiveStatisticError, getLiveAllRaces, getLiveAllRacesSuccess, getLiveAllRacesError } from '../actions/live.actions';
-import { RaceResultDto } from '../dtos';
+import { RaceStatisticEntry } from '../dtos';
 
 export interface LiveState {
     races: ApiResource<RaceDto[]>,
     selected: {
         race: ApiResource<RaceDto>,
-        statistic: ApiResource<RaceResultDto[]>
+        statistic: ApiResource<RaceStatisticEntry[]>
     }
 }
 
@@ -62,7 +62,7 @@ const onGetLiveStatistic = (state: LiveState): LiveState => ({
         statistic: loading()
     }
 });
-const onGetLiveStatisticSuccess = (state: LiveState, statistic: RaceResultDto[]): LiveState => ({
+const onGetLiveStatisticSuccess = (state: LiveState, statistic: RaceStatisticEntry[]): LiveState => ({
     ...state,
     selected: {
         ...state.selected,

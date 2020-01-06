@@ -7,6 +7,7 @@ import { getLiveAllRaces, getLiveAllRacesSuccess, getLiveAllRacesError, getLiveR
 import { mergeMap, map, catchError, tap, switchMap } from 'rxjs/operators';
 import { RaceState } from '../enums';
 import { of } from 'rxjs';
+import { RaceStatisticEntry } from '../dtos';
 
 @Injectable()
 export class LiveEffects {
@@ -37,7 +38,7 @@ export class LiveEffects {
         ofType(getLiveStatistic),
         mergeMap(action => this.statisticService.getRaceStatistic(action.id, action.runNumber).pipe(
             map(raceResults => {
-                return getLiveStatisticSuccess({ payload: raceResults });
+                return getLiveStatisticSuccess({ payload: raceResults as RaceStatisticEntry[] }); // TODO:!
             }),
             catchError(() => of(getLiveStatisticError()))
         ))

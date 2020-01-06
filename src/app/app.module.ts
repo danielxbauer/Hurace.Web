@@ -19,6 +19,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
 
 import { SkierListComponent } from './components/skier-list/skier-list.component';
 import { LiveViewComponent } from './components/live-view/live-view.component';
@@ -40,11 +41,11 @@ import { LiveDetailComponent } from './components/live-detail/live-detail.compon
     declarations: [
         AppComponent,
         SkierListComponent,
-        LiveViewComponent,
+        LiveViewComponent, // TODO: remove?
         SkierEditComponent,
         NothingSelectedComponent,
         LiveListComponent,
-        LiveDetailComponent // TODO: remove?
+        LiveDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -66,6 +67,7 @@ import { LiveDetailComponent } from './components/live-detail/live-detail.compon
         MatNativeDateModule,
         MatCheckboxModule,
         MatProgressSpinnerModule,
+        MatTableModule,
         StoreModule.forRoot(reducers, {
             metaReducers,
             runtimeChecks: {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { RaceResultDto } from 'src/app/dtos';
+import { RaceStatisticEntryDto } from 'src/app/dtos';
 import { RunNumber } from '../models';
 
 @Injectable({
@@ -16,6 +16,6 @@ export class StatisticService {
     ) { }
 
     public getRaceStatistic(id: number, runNumber: RunNumber) {
-        return this.http.get<RaceResultDto[]>(`${this.baseUrl}/${id}/run/${runNumber}`);
+        return this.http.get<RaceStatisticEntryDto[]>(`${this.baseUrl}/${id}/run/${runNumber}`);
     }
 }
