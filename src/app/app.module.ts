@@ -34,6 +34,7 @@ import { environment } from '../environments/environment';
 import { SkierEffects } from './effects/skier.effects';
 import { CountriesEffects } from './effects/countries.effects';
 import { LiveEffects } from './effects/live.effects';
+import { LiveDetailComponent } from './components/live-detail/live-detail.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { LiveEffects } from './effects/live.effects';
         LiveViewComponent,
         SkierEditComponent,
         NothingSelectedComponent,
-        LiveListComponent // TODO: remove?
+        LiveListComponent,
+        LiveDetailComponent // TODO: remove?
     ],
     imports: [
         BrowserModule,

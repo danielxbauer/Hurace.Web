@@ -15,7 +15,7 @@ export class StatisticService {
         private http: HttpClient
     ) { }
 
-    public getRaceStatistic(id: number, runNumber: RunNumber, sensorAmount: number) {
-        return this.http.get<RaceResultDto[]>(`${this.baseUrl}/${id}/run/${runNumber}/sensors/${sensorAmount}`);
+    public getRaceStatistic(id: number, runNumber: RunNumber) {
+        return this.http.get<RaceResultDto[]>(`${this.baseUrl}/${id}/run/${runNumber}`);
     }
 }

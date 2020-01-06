@@ -5,7 +5,6 @@ import { map, mergeMap, catchError, tap, switchMap } from 'rxjs/operators';
 import { SkierService, } from '../services';
 import { getAllSkiers, getAllSkiersError, getAllSkiersSuccess, newSkier, saveSkier, saveSkierError, saveSkierSuccess, getSkierById, getSkierByIdSuccess, getSkierByIdError, selectSkier, removeSkier } from '../actions';
 import { Router } from '@angular/router';
-import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class SkierEffects {
@@ -51,7 +50,10 @@ export class SkierEffects {
     getSkierById$ = createEffect(() => this.actions$.pipe(
         ofType(getSkierById),
         mergeMap(action => this.skierService.getById(action.id).pipe(
-            map(skier => getSkierByIdSuccess({ payload: skier })),
+            map(skier => {
+                skier.birthDate = new Date(skier.birthDate);
+                return getSkierByIdSuccess({ payload: skier });
+            }),
             catchError(() => of(getSkierByIdError()))
         ))
     ));

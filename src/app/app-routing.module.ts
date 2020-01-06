@@ -5,6 +5,7 @@ import { LiveViewComponent } from './components/live-view/live-view.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
 import { LiveListComponent } from './components/live-list/live-list.component';
+import { LiveDetailComponent } from './components/live-detail/live-detail.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'skiers', pathMatch: 'full' },
@@ -13,7 +14,7 @@ const routes: Routes = [
         { path: '**', component: NothingSelectedComponent }
     ] },
     { path: 'live', component: LiveListComponent, children: [
-        // { path: ':id', component: SkierEditComponent },
+        { path: ':id', component: LiveDetailComponent },
         { path: '**', component: NothingSelectedComponent }
     ] },
     { path: '**', redirectTo: 'skiers' },

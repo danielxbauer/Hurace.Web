@@ -36,8 +36,8 @@ const onGetLiveAllRacesError = (state: LiveState): LiveState => ({
 const onGetLiveRace = (state: LiveState): LiveState => ({
     ...state,
     selected: {
-        race: loading(),
-        statistic: empty()
+        ...state.selected,
+        race: loading()
     }
 });
 const onGetLiveRaceSuccess = (state: LiveState, race: RaceDto): LiveState => ({

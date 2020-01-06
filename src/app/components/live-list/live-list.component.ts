@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ApiResource } from 'src/app/models';
 import { RaceDto } from 'src/app/dtos';
 import { getLiveAllRaces } from 'src/app/actions/live.actions';
-import { formatDate, formatGender, formatRaceType } from 'src/app/util';
+import { formatGender, formatRaceType } from 'src/app/util';
 
 @Component({
     selector: 'app-live-list',

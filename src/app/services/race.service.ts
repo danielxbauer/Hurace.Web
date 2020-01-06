@@ -20,7 +20,7 @@ export class RaceService {
     }
 
     public getByState(raceState: RaceState) {
-        return this.http.get<RaceDto[]>(`${this.baseUrl}/${raceState}`);
+        return this.http.get<RaceDto[]>(`${this.baseUrl}/state/${raceState}`);
     }
 
     public getById(id: number) {
