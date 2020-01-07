@@ -5,6 +5,8 @@ import { RaceDto } from 'src/app/dtos';
 import { ApiResource } from 'src/app/models';
 import { RaceType } from 'src/app/enums';
 import { formatRaceType, formatGender } from 'src/app/util';
+import { Props } from 'src/app/models/props.model';
+import { SeasonStateModel } from 'src/app/states/season.state';
 
 interface RaceGroup {
     raceType: RaceType,
@@ -18,7 +20,7 @@ interface RaceGroup {
 })
 export class SeasonComponent implements OnInit {
     public races: ApiResource<RaceDto[]>;
-    public displayedColumns: string[] = ['name', 'raceDate', 'gender'];
+    public displayedColumns: Props<RaceDto> = ['name', 'raceDate', 'gender'];
     public groups: RaceGroup[];
 
     constructor(

@@ -6,7 +6,9 @@
     <ng-container *ngSwitchCase="'Data'">
         <mat-tab-group class="no-shrink">
             <mat-tab *ngFor="let group of groups" [label]="formatRaceType(group.raceType)">
-                <div class="d-flex flex-col">
+                <div class="d-flex flex-col mw-800px p-4">
+                    <!-- TODO: Date Filter -->
+
                     <table mat-table [dataSource]="group.data" class="flex-1">
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef> Name </th>

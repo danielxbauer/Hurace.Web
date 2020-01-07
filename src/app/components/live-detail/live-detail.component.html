@@ -1,4 +1,4 @@
-<div [ngSwitch]="(statistic$ | async).kind" class="flex-1 d-flex flex-col">
+<div [ngSwitch]="statistic.kind" class="flex-1 d-flex flex-col">
     <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
         <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
     </div>
@@ -12,7 +12,7 @@
             </mat-form-field>
         </div>
 
-        <table mat-table [dataSource]="(statistic$ | async).data" class="flex-1">
+        <table mat-table [dataSource]="statistic.data" class="flex-1 mw-800px">
             <ng-container matColumnDef="currentPosition">
                 <th mat-header-cell *matHeaderCellDef> Pos </th>
                 <td mat-cell *matCellDef="let element"> {{element.currentPosition}} </td>
@@ -38,7 +38,7 @@
                 <td mat-cell *matCellDef="let element"> {{element.time}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="deltaTime">
+            <ng-container matColumnDef="deltaTimeLeadership">
                 <th mat-header-cell *matHeaderCellDef> Delta Time </th>
                 <td mat-cell *matCellDef="let element"> {{element.deltaTimeLeadership}} </td>
             </ng-container>
