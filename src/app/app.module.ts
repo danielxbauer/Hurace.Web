@@ -29,6 +29,8 @@ import { LiveDetailComponent } from './components/live-detail/live-detail.compon
 import { CountriesState } from './states/countries.state';
 import { SkierState } from './states/skier.state';
 import { LiveState } from './states/live.state';
+import { SeasonComponent } from './components/season/season.component';
+import { SeasonState } from './states/season.state';
 
 @NgModule({
     declarations: [
@@ -37,7 +39,8 @@ import { LiveState } from './states/live.state';
         SkierEditComponent,
         NothingSelectedComponent,
         LiveListComponent,
-        LiveDetailComponent
+        LiveDetailComponent,
+        SeasonComponent
     ],
     imports: [
         BrowserModule,
@@ -67,7 +70,8 @@ import { LiveState } from './states/live.state';
         NgxsModule.forRoot([
             CountriesState,
             SkierState,
-            LiveState
+            LiveState,
+            SeasonState
         ]),
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
