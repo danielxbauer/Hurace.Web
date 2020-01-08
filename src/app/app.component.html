@@ -2,11 +2,5 @@
     <span>Hurace</span>
 </mat-toolbar>
 
-<nav mat-tab-nav-bar class="no-shrink shadow-sm">
-    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">
-        {{link.label}}
-    </a>
-</nav>
-
+<app-tab-nav [links]="navLinks"></app-tab-nav>
 <router-outlet></router-outlet>

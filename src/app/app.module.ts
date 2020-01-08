@@ -31,6 +31,8 @@ import { SkierState } from './states/skier.state';
 import { RaceState } from './states/race.state';
 import { SeasonComponent } from './components/season/season.component';
 import { SeasonState } from './states/season.state';
+import { RaceStatisticComponent } from './components/race-statistic/race-statistic.component';
+import { TabNavComponent } from './components/tab-nav/tab-nav.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { SeasonState } from './states/season.state';
         NothingSelectedComponent,
         RaceListComponent,
         RaceDetailComponent,
-        SeasonComponent
+        SeasonComponent,
+        RaceStatisticComponent,
+        TabNavComponent
     ],
     imports: [
         BrowserModule,

@@ -6,6 +6,7 @@ import { NothingSelectedComponent } from './components/nothing-selected/nothing-
 import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { SeasonComponent } from './components/season/season.component';
+import { RaceStatisticComponent } from './components/race-statistic/race-statistic.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'skiers', pathMatch: 'full' },
@@ -14,7 +15,10 @@ const routes: Routes = [
         { path: '**', component: NothingSelectedComponent }
     ] },
     { path: 'races', component: RaceListComponent, children: [
-        { path: ':id', component: RaceDetailComponent },
+        { path: ':id', component: RaceDetailComponent, children: [
+            { path: ':runNumber', component: RaceStatisticComponent },
+            { path: '', redirectTo: '1', pathMatch: 'full' }
+        ] },
         { path: '**', component: NothingSelectedComponent }
     ] },
     { path: 'season', component: SeasonComponent },

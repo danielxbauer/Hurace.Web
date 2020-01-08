@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
-interface NavLink {
-    path: string,
-    label: string
-}
+import { Component } from '@angular/core';
+import { NavLink } from './models/nav-link.model';
 
 @Component({
     selector: 'app-root',
