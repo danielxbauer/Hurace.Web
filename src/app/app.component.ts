@@ -13,7 +13,7 @@ interface NavLink {
 export class AppComponent {
     public navLinks: NavLink[] = [
         { path: '/skiers', label: 'Skiers' },
-        { path: '/live', label: 'Live View' },
+        { path: '/races', label: 'Races' },
         { path: '/season', label: 'Season' }
     ];
 }

@@ -26,7 +26,7 @@ const initialState: RaceStateModel = {
 };
 
 @State<RaceStateModel>({
-    name: 'live',
+    name: 'race',
     defaults: initialState
 })
 export class RaceState { // TODO: rename

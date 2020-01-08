@@ -24,8 +24,8 @@ import { MatTableModule } from '@angular/material/table';
 import { SkierListComponent } from './components/skier-list/skier-list.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
-import { LiveListComponent } from './components/live-list/live-list.component';
-import { LiveDetailComponent } from './components/live-detail/live-detail.component';
+import { RaceListComponent } from './components/race-list/race-list.component';
+import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { CountryState } from './states/country.state';
 import { SkierState } from './states/skier.state';
 import { RaceState } from './states/race.state';
@@ -38,8 +38,8 @@ import { SeasonState } from './states/season.state';
         SkierListComponent,
         SkierEditComponent,
         NothingSelectedComponent,
-        LiveListComponent,
-        LiveDetailComponent,
+        RaceListComponent,
+        RaceDetailComponent,
         SeasonComponent
     ],
     imports: [

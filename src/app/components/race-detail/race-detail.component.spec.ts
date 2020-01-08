@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiveListComponent } from './live-list.component';
+import { RaceDetailComponent } from './race-detail.component';
 
-describe('LiveListComponent', () => {
-  let component: LiveListComponent;
-  let fixture: ComponentFixture<LiveListComponent>;
+describe('RaceDetailComponent', () => {
+  let component: RaceDetailComponent;
+  let fixture: ComponentFixture<RaceDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiveListComponent ]
+      declarations: [ RaceDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LiveListComponent);
+    fixture = TestBed.createComponent(RaceDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

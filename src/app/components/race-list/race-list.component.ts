@@ -4,25 +4,25 @@ import { Observable } from 'rxjs';
 
 import { ApiResource } from 'src/app/models';
 import { RaceDto } from 'src/app/dtos';
-import { GetLiveAllRaces } from 'src/app/actions';
+import { GetAllRaces } from 'src/app/actions';
 import { formatGender, formatRaceType } from 'src/app/util';
 
 @Component({
-    selector: 'app-live-list',
-    templateUrl: './live-list.component.html',
-    styleUrls: ['./live-list.component.scss']
+    selector: 'app-race-list',
+    templateUrl: './race-list.component.html',
+    styleUrls: ['./race-list.component.scss']
 })
-export class LiveListComponent implements OnInit {
+export class RaceListComponent implements OnInit {
     public races$: Observable<ApiResource<RaceDto[]>>;
 
     constructor(
         private store: Store
     ) {
-        this.races$ = store.select(s => s.live.races);
+        this.races$ = store.select(s => s.race.races);
     }
 
     ngOnInit() {
-        this.store.dispatch(new GetLiveAllRaces());
+        this.store.dispatch(new GetAllRaces());
     }
 
     public formatRaceType = formatRaceType;
