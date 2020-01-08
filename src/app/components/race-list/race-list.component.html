@@ -1,15 +1,28 @@
-<div [ngSwitch]="(races$ | async).kind" class="flex-1 d-flex flex-col mw-400px shadow">
+<div [ngSwitch]="races.kind" class="flex-1 d-flex flex-col mw-400px shadow">
 
-    <mat-nav-list *ngSwitchCase="'Data'" class="flex-1 mh-100 overflow-auto p-0">
-        <a mat-list-item *ngFor="let race of (races$ | async).data" routerLink="{{ race.id }}"
-            routerLinkActive="active">
-            <div>
-                <div class="text-bold">{{ race.name }}</div>
-                <div class="text-smaller">{{ race.raceDate | date:'shortDate' }} {{ formatGender(race.gender) }} {{ formatRaceType(race.raceType) }}
+    <ng-container *ngSwitchCase="'Data'">
+        <div class="d-flex flex-col px-2 pt-1">
+            <mat-form-field>
+                <input matInput placeholder="Search" [(ngModel)]="filter" autocomplete="off">
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="filteredRaces.length === 0" class="px-2">
+            Nothing found
+        </div>
+
+        <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
+            <a mat-list-item *ngFor="let race of filteredRaces" routerLink="{{ race.id }}"
+                routerLinkActive="active">
+                <div>
+                    <div class="text-bold">{{ race.name }}</div>
+                    <div class="text-smaller">{{ race.raceDate | date:'shortDate' }} {{ formatGender(race.gender) }}
+                        {{ formatRaceType(race.raceType) }}
+                    </div>
                 </div>
-            </div>
-        </a>
-    </mat-nav-list>
+            </a>
+        </mat-nav-list>
+    </ng-container>
 
     <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
         <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>

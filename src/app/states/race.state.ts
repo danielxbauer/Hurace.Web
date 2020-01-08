@@ -48,7 +48,7 @@ export class RaceState { // TODO: rename
     getAllRaces(context: Context) {
         context.patchState({ races: loading() });
 
-        return this.raceService.getByState(RaceStatus.Running).pipe(
+        return this.raceService.getAll().pipe(
             map(races => {
                 races.forEach(r => r.raceDate = new Date(r.raceDate));
                 return races;

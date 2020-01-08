@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { SkierDto } from 'src/app/dtos';
 import { GetAllSkiers, NewSkier } from 'src/app/actions';
 import { fullName } from 'src/app/util';
-import { ApiResource, data } from 'src/app/models';
+import { ApiResource, data, empty } from 'src/app/models';
 
 @Component({
     selector: 'app-skier-list',
@@ -12,8 +12,7 @@ import { ApiResource, data } from 'src/app/models';
     styleUrls: ['./skier-list.component.scss']
 })
 export class SkierListComponent implements OnInit {
-    public skiers: ApiResource<SkierDto[]> = data([]);
-
+    public skiers: ApiResource<SkierDto[]> = empty();
     public filter = null;
 
     public get filteredSkiers(): SkierDto[] {

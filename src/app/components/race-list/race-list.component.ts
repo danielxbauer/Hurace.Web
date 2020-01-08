@@ -1,8 +1,7 @@
 import { Store } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { ApiResource } from 'src/app/models';
+import { ApiResource, empty } from 'src/app/models';
 import { RaceDto } from 'src/app/dtos';
 import { GetAllRaces } from 'src/app/actions';
 import { formatGender, formatRaceType } from 'src/app/util';
@@ -13,12 +12,27 @@ import { formatGender, formatRaceType } from 'src/app/util';
     styleUrls: ['./race-list.component.scss']
 })
 export class RaceListComponent implements OnInit {
-    public races$: Observable<ApiResource<RaceDto[]>>;
+    public races: ApiResource<RaceDto[]> = empty();
+    public filter = null;
+
+    public get filteredRaces(): RaceDto[] {
+        if (this.races.kind == 'Data') {
+            if (this.filter == null) {
+                return this.races.data;
+            }
+
+            const filter = this.filter.toLowerCase();
+            return this.races.data.filter(r => `${r.name}`.toLowerCase().includes(filter));
+        }
+
+        return [];
+    }
 
     constructor(
         private store: Store
     ) {
-        this.races$ = store.select(s => s.race.races);
+        store.select(s => s.race.races)
+            .subscribe(races => this.races = races);
     }
 
     ngOnInit() {
