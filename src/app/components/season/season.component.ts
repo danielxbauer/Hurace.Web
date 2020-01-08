@@ -13,6 +13,11 @@ interface RaceGroup {
     data: RaceDto[]
 }
 
+interface SeasonFilter {
+    from: Date,
+    to: Date
+}
+
 @Component({
     selector: 'app-season',
     templateUrl: './season.component.html',
@@ -21,6 +26,8 @@ interface RaceGroup {
 export class SeasonComponent implements OnInit {
     public races: ApiResource<RaceDto[]>;
     public displayedColumns: Props<RaceDto> = ['name', 'raceDate', 'gender'];
+
+    public filter: SeasonFilter = { from: new Date(), to: new Date() };
     public groups: RaceGroup[];
 
     constructor(
@@ -30,17 +37,45 @@ export class SeasonComponent implements OnInit {
             this.races = races;
 
             if (races.kind === 'Data') {
-                this.groups = [RaceType.Slalom, RaceType.GiantSlalom, RaceType.SuperG, RaceType.Downhill]
-                    .map(raceType => ({
-                        raceType: raceType,
-                        data: races.data.filter(r => r.raceType === raceType)
-                    }));
+                // this.groups = [RaceType.Slalom, RaceType.GiantSlalom, RaceType.SuperG, RaceType.Downhill]
+                //     .map(raceType => ({
+                //         raceType: raceType,
+                //         data: races.data.filter(r => r.raceType === raceType)
+                //     }));
+                this.filterChange();
             }
         });
     }
 
     ngOnInit() {
         this.store.dispatch(new GetSeasons());
+    }
+
+    filterFromChange(from: Date) {
+        this.filter.from = from;
+        this.filterChange();
+    }
+
+    filterToChange(to: Date) {
+        this.filter.to = to;
+        this.filterChange();
+    }
+
+    filterChange() {
+        console.log(this.filter);
+
+        if (this.races.kind === 'Data') {
+            const races = this.races.data;
+
+            this.groups = [RaceType.Slalom, RaceType.GiantSlalom, RaceType.SuperG, RaceType.Downhill]
+                .map(raceType => ({
+                    raceType: raceType,
+                    data: races
+                        .filter(r => r.raceType === raceType)
+                        .filter(r => r.raceDate >= this.filter.from
+                                  && r.raceDate <= this.filter.to)
+                }));
+        }
     }
 
     formatRaceType = formatRaceType;

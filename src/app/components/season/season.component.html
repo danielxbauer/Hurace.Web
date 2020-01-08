@@ -1,14 +1,27 @@
-<div [ngSwitch]="races.kind" class="flex-1 d-flex flex-col">
+<div [ngSwitch]="races.kind" class="flex-1 d-flex flex-col p-4">
     <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
         <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
     </div>
 
     <ng-container *ngSwitchCase="'Data'">
-        <mat-tab-group class="no-shrink">
-            <mat-tab *ngFor="let group of groups" [label]="formatRaceType(group.raceType)">
-                <div class="d-flex flex-col mw-800px p-4">
-                    <!-- TODO: Date Filter -->
+        <div>
+            <mat-form-field class="mr-2">
+                <input matInput [matDatepicker]="pickerFrom" placeholder="From" [ngModel]="filter.from" (ngModelChange)="filterFromChange($event)"
+                    autocomplete="off">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
 
+            <mat-form-field class="ml-2">
+                <input matInput [matDatepicker]="pickerTo" placeholder="To" [ngModel]="filter.to" (ngModelChange)="filterToChange($event)" autocomplete="off">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <mat-tab-group class="no-shrink mw-800px">
+            <mat-tab *ngFor="let group of groups" [label]="formatRaceType(group.raceType)">
+                <div class="d-flex flex-col">
                     <table mat-table [dataSource]="group.data" class="flex-1">
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef> Name </th>
