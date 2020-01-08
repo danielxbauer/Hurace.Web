@@ -7,6 +7,10 @@
             </mat-form-field>
         </div>
 
+        <div *ngIf="filteredSkiers.length === 0" class="px-2">
+            Nothing found
+        </div>
+
         <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
             <a mat-list-item *ngFor="let skier of filteredSkiers" routerLink="{{ skier.id }}" routerLinkActive="active">
                 <b class="pr-1">{{ skier.countryCode }}</b> {{ skier.firstName }} {{ skier.lastName }}

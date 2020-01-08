@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 
 import { SkierDto } from 'src/app/dtos';
 import { GetAllSkiers, NewSkier } from 'src/app/actions';
 import { fullName } from 'src/app/util';
 import { ApiResource, data } from 'src/app/models';
-import { SkierState } from 'src/app/states/skier.state';
 
 @Component({
     selector: 'app-skier-list',
@@ -18,13 +17,13 @@ export class SkierListComponent implements OnInit {
     public filter = null;
 
     public get filteredSkiers(): SkierDto[] {
-        if (this.skiers.kind == "Data") {
+        if (this.skiers.kind == 'Data') {
             if (this.filter == null) {
                 return this.skiers.data;
             }
 
             const filter = this.filter.toLowerCase();
-            return this.skiers.data.filter(s => fullName(s).toLowerCase().includes(filter));
+            return this.skiers.data.filter(s => `${s.countryCode} ${fullName(s)}`.toLowerCase().includes(filter));
         }
 
         return [];

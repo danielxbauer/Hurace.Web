@@ -1,11 +1,12 @@
 import { State, Action, StateContext, Select, Selector } from '@ngxs/store';
 import { of } from 'rxjs';
 import { map, tap, catchError, mergeMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { ApiResource, empty, loading, data, error } from '../models';
 import { SkierDto } from '../dtos';
 import { SkierService } from '../services/skier.service';
-import { GetAllSkiers, GetSkierById, SaveSkier, RemoveSkier } from '../actions';
+import { GetAllSkiers, GetSkierById, SaveSkier, RemoveSkier, NewSkier } from '../actions';
 
 type Context = StateContext<SkierStateModel>;
 
@@ -24,6 +25,7 @@ const initialState: SkierStateModel = {
 })
 export class SkierState {
     constructor(
+        private router: Router,
         private skierService: SkierService
     ) { }
 
@@ -63,7 +65,10 @@ export class SkierState {
         context.patchState({ selected: loading() });
         return this.skierService.getById(action.id).pipe(
             map(skier => {
-                skier.birthDate = new Date(skier.birthDate);
+                if (skier != null) {
+                    skier.birthDate = new Date(skier.birthDate);
+                }
+
                 return skier;
             }),
             tap(skier => context.patchState({ selected: data(skier) })),
@@ -72,6 +77,11 @@ export class SkierState {
                 return of([]);
             })
         );
+    }
+
+    @Action(NewSkier)
+    newSkier(context: Context) {
+        this.router.navigateByUrl('/skiers/0');
     }
 
     @Action(SaveSkier)

@@ -1,7 +1,7 @@
 <div [ngSwitch]="skier.kind" class="flex-1 d-flex flex-col">
 
     <ng-container *ngSwitchCase="'Data'">
-        <h1>{{ skier.data?.id == 0 ? 'New Skier' : 'Edit Skier' }}</h1>
+        <h1>{{ skier.data == null ? 'New Skier' : 'Edit Skier' }}</h1>
 
         <form class="d-flex flex-col" [formGroup]="skierForm" novalidate>
             <div class="d-flex">
