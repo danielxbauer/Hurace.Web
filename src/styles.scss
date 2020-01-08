@@ -3,6 +3,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+$red: #d32f2f;
+
 // Padding & Margin
 .p-0 { padding: 0!important; }
 .p-1 { padding: 5px; }
@@ -43,13 +45,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .overflow-hidden { overflow: hidden; }
 .overflow-auto { overflow: auto; }
 
-// Images
-.rounded { border-radius: 50%; }
-
 // Shadows
 .shadow-sm { box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important; }
 .shadow { box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
 
-// Font
+// Text
+.text-danger { color: $red; }
 .text-bold { font-weight: 500; }
 .text-smaller { font-size: smaller; }
+
+// Background
+.bg-danger { background-color: $red; }
+
+// Border
+.rounded { border-radius: 50%; }
+.border-2 { border: 2px solid; }
+.border-danger { border-color: $red; }
