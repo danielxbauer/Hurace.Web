@@ -12,6 +12,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .pt-0 { padding-top: 0!important; }
 .pt-1 { padding-top: 5px!important; }
 .pr-1 { padding-right: 5px; }
+.pr-2 { padding-right: 10px; }
 .px-2 { padding: 0 10px; }
 
 .m-0 { margin: 0!important; }
@@ -30,6 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .flex-1 { flex: 1; }
 .no-shrink { flex-shrink: 0; }
 .align-center { align-self: center; }
+.align-items-center { align-items: center; }
 .justify-content-end { justify-content: flex-end; }
 
 // Width / Height

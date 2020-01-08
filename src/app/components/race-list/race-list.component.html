@@ -1,5 +1,4 @@
 <div [ngSwitch]="races.kind" class="flex-1 d-flex flex-col mw-400px shadow">
-
     <ng-container *ngSwitchCase="'Data'">
         <div class="d-flex flex-col px-2 pt-1">
             <mat-form-field>
@@ -12,12 +11,19 @@
         </div>
 
         <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
-            <a mat-list-item *ngFor="let race of filteredRaces" routerLink="{{ race.id }}"
-                routerLinkActive="active">
-                <div>
-                    <div class="text-bold">{{ race.name }}</div>
-                    <div class="text-smaller">{{ race.raceDate | date:'shortDate' }} {{ formatGender(race.gender) }}
-                        {{ formatRaceType(race.raceType) }}
+            <a mat-list-item *ngFor="let race of filteredRaces" routerLink="{{ race.id }}" routerLinkActive="active">
+                <div class="d-flex">
+                    <div class="pr-2 d-flex align-items-center">
+                        <span class="mdi-24px {{ getRaceStateIcon(race.raceState) }}"></span>
+                    </div>
+
+                    <div class="d-flex flex-col">
+                        <div class="text-bold">{{ race.name }}</div>
+                        <div class="text-smaller pt-2px">
+                            {{ race.raceDate | date:'shortDate' }}
+                            <span [class]="getGenderIcon(race.gender)"></span>
+                            {{ formatRaceType(race.raceType) }}
+                        </div>
                     </div>
                 </div>
             </a>

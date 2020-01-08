@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiResource, empty } from 'src/app/models';
 import { RaceDto } from 'src/app/dtos';
 import { GetAllRaces } from 'src/app/actions';
-import { formatGender, formatRaceType } from 'src/app/util';
+import { getGenderIcon, formatRaceType, getRaceStateIcon } from 'src/app/util';
 
 @Component({
     selector: 'app-race-list',
@@ -40,5 +40,6 @@ export class RaceListComponent implements OnInit {
     }
 
     public formatRaceType = formatRaceType;
-    public formatGender = formatGender;
+    public getGenderIcon = getGenderIcon;
+    public getRaceStateIcon = getRaceStateIcon;
 }
