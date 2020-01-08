@@ -26,9 +26,9 @@ import { SkierEditComponent } from './components/skier-edit/skier-edit.component
 import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
 import { LiveListComponent } from './components/live-list/live-list.component';
 import { LiveDetailComponent } from './components/live-detail/live-detail.component';
-import { CountriesState } from './states/countries.state';
+import { CountryState } from './states/country.state';
 import { SkierState } from './states/skier.state';
-import { LiveState } from './states/live.state';
+import { RaceState } from './states/race.state';
 import { SeasonComponent } from './components/season/season.component';
 import { SeasonState } from './states/season.state';
 
@@ -68,9 +68,9 @@ import { SeasonState } from './states/season.state';
 
         // Ngxs
         NgxsModule.forRoot([
-            CountriesState,
+            CountryState,
             SkierState,
-            LiveState,
+            RaceState,
             SeasonState
         ]),
         NgxsReduxDevtoolsPluginModule.forRoot(),

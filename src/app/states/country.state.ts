@@ -5,16 +5,16 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { CountryService } from '../services/country.service';
 import { GetAllCountries } from '../actions';
 
-type Context = StateContext<CountriesStateModel>;
+type Context = StateContext<CountryStateModel>;
 
-export type CountriesStateModel = string[];
-const initialState: CountriesStateModel = [];
+export type CountryStateModel = string[];
+const initialState: CountryStateModel = [];
 
-@State<CountriesStateModel>({
+@State<CountryStateModel>({
     name: 'countries',
     defaults: initialState
 })
-export class CountriesState {
+export class CountryState {
     constructor(
         private countryService: CountryService
     ) { }

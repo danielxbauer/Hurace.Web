@@ -5,50 +5,50 @@ import { of, combineLatest } from 'rxjs';
 import { RaceDto, RaceStatisticEntry, RaceStatisticEntryDto, SkierDto } from '../dtos';
 import { ApiResource, empty, loading, data, error } from '../models';
 import { RaceService } from '../services/race.service';
-import { GetLiveAllRaces, GetLiveRace, GetLiveStatistic, SelectLiveRace, GetAllSkiers } from '../actions';
-import { RaceState } from '../enums';
+import { GetAllRaces, GetRaceById, GetRaceStatistic, SelectRace, GetAllSkiers } from '../actions';
+import { RaceState as RaceStatus } from '../enums';
 import { StatisticService } from '../services/statistic.service';
 import { SkierState } from './skier.state';
-import { fullName, mapStatisticDto } from '../util';
+import { mapStatisticDto } from '../util';
 
-type Context = StateContext<LiveStateModel>;
+type Context = StateContext<RaceStateModel>;
 
-export interface LiveStateModel {
+export interface RaceStateModel {
     races: ApiResource<RaceDto[]>,
     selected: ApiResource<RaceDto>,
     statistic: ApiResource<RaceStatisticEntry[]>
 }
 
-const initialState: LiveStateModel = {
+const initialState: RaceStateModel = {
     races: empty(),
     selected: empty(),
     statistic: empty()
 };
 
-@State<LiveStateModel>({
+@State<RaceStateModel>({
     name: 'live',
     defaults: initialState
 })
-export class LiveState {
+export class RaceState { // TODO: rename
     constructor(
         private store: Store,
         private raceService: RaceService,
         private statisticService: StatisticService
     ) { }
 
-    @Action(SelectLiveRace)
-    selectLiveRace(context: Context, action: SelectLiveRace) {
-        const a = context.dispatch(new GetLiveRace(action.id));
+    @Action(SelectRace)
+    selectRace(context: Context, action: SelectRace) {
+        const a = context.dispatch(new GetRaceById(action.id));
         const b = context.dispatch(new GetAllSkiers());
 
         return combineLatest(a, b);
     }
 
-    @Action(GetLiveAllRaces)
-    getLiveAllRaces(context: Context) {
+    @Action(GetAllRaces)
+    getAllRaces(context: Context) {
         context.patchState({ races: loading() });
 
-        return this.raceService.getByState(RaceState.Running).pipe(
+        return this.raceService.getByState(RaceStatus.Running).pipe(
             map(races => {
                 races.forEach(r => r.raceDate = new Date(r.raceDate));
                 return races;
@@ -61,8 +61,8 @@ export class LiveState {
         );
     }
 
-    @Action(GetLiveRace)
-    getLiveRace(context: Context, action: GetLiveRace) {
+    @Action(GetRaceById)
+    getRaceById(context: Context, action: GetRaceById) {
         // Alread loaded
         const state = context.getState();
         if (state.races.kind === 'Data') {
@@ -86,8 +86,8 @@ export class LiveState {
         );
     }
 
-    @Action(GetLiveStatistic)
-    getLiveStatistic(context: Context, action: GetLiveStatistic) {
+    @Action(GetRaceStatistic)
+    getRaceStatistic(context: Context, action: GetRaceStatistic) {
         context.patchState({ statistic: loading() });
 
         return this.statisticService.getRaceStatistic(action.id, action.runNumber).pipe(
