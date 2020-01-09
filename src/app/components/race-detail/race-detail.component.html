@@ -1,12 +1,11 @@
-<div [ngSwitch]="race.kind" class="flex-1 d-flex flex-col">
-    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
-        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
-    </div>
-
+<div [ngSwitch]="race.kind" class="flex-1 d-flex flex-col mw-800px">
     <ng-container *ngSwitchCase="'Data'">
         <ng-container [ngSwitch]="race.data.raceState">
             <!-- NotStarted -->
-            <div *ngSwitchCase='0'>NotStarted</div>
+            <app-icon-info *ngSwitchCase='0' icon="flag-outline">
+                    Race is not started yet. <br>
+                    Watch live on {{ race.data.raceDate | date:'dd.MM.yyyy' }}.
+            </app-icon-info>
 
             <!-- Running -->
             <div *ngSwitchCase='1'>
@@ -76,7 +75,6 @@
 
     </ng-container>
 
-    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
-        ERROR WHILE LOADING :(
-    </div>
+    <app-loading *ngSwitchCase="'Loading'"></app-loading>
+    <app-error-info *ngSwitchCase="'Error'"></app-error-info>
 </div>

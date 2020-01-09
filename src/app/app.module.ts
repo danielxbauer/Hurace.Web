@@ -23,7 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { SkierListComponent } from './components/skier-list/skier-list.component';
 import { SkierEditComponent } from './components/skier-edit/skier-edit.component';
-import { NothingSelectedComponent } from './components/nothing-selected/nothing-selected.component';
+import { NothingSelectedComponent } from './components/shared/nothing-selected/nothing-selected.component';
 import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { CountryState } from './states/country.state';
@@ -36,8 +36,11 @@ import { TabNavComponent } from './components/tab-nav/tab-nav.component';
 import { LiveState } from './states/live.state';
 import { LiveService } from './services/live.service';
 import { SkierDetailComponent } from './components/skier-detail/skier-detail.component';
-import { DataFieldComponent } from './components/data-field/data-field.component';
+import { DataFieldComponent } from './components/shared/data-field/data-field.component';
 import { SkierInfoComponent } from './components/skier-info/skier-info.component';
+import { ErrorInfoComponent } from './components/shared/error-info/error-info.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { IconInfoComponent } from './components/shared/icon-info/icon-info.component';
 
 function initSignalR(liveService: LiveService) {
     return () => liveService.initSignalR();
@@ -58,6 +61,9 @@ function initSignalR(liveService: LiveService) {
         SkierDetailComponent,
         DataFieldComponent,
         SkierInfoComponent,
+        ErrorInfoComponent,
+        LoadingComponent,
+        IconInfoComponent,
     ],
     imports: [
         BrowserModule,

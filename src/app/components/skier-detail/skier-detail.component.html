@@ -5,11 +5,6 @@
         <app-skier-edit *ngIf="auth.loggedIn" [skier]="skier.data"></app-skier-edit>
     </ng-container>
 
-    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
-        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
-    </div>
-
-    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
-        ERROR WHILE LOADING :(
-    </div>
+    <app-loading *ngSwitchCase="'Loading'"></app-loading>
+    <app-error-info *ngSwitchCase="'Error'"></app-error-info>
 </div>

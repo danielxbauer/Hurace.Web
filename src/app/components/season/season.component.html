@@ -1,8 +1,4 @@
 <div [ngSwitch]="races.kind" class="flex-1 d-flex flex-col p-4">
-    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
-        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
-    </div>
-
     <div *ngSwitchCase="'Data'" class="mw-800px">
         <mat-form-field *ngIf="seasons.kind == 'Data'">
             <mat-select placeholder="Season" [ngModel]="selectedSeason" (ngModelChange)="selectionChanged($event)">
@@ -51,7 +47,6 @@
         </mat-tab-group>
     </div>
 
-    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
-        ERROR WHILE LOADING :(
-    </div>
+    <app-loading *ngSwitchCase="'Loading'"></app-loading>
+    <app-error-info *ngSwitchCase="'Error'"></app-error-info>
 </div>
