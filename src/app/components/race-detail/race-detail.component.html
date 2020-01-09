@@ -23,6 +23,19 @@
 
                 <p>{{ race.data.description }}</p>
 
+                <!-- Current Skier -->
+                <div *ngIf="liveStatistic != null">
+                    <h2>Current Skier: {{ liveStatistic.firstName }} {{ liveStatistic.lastName }}</h2>
+                    <p>Run: {{ liveStatistic.runNumber }}</p>
+                    <p>{{ liveStatistic.countryCode }}</p>
+                    <p>Total: {{ liveStatistic.totalTime }}</p>
+                    <ul>
+                        <li *ngFor="let data of liveStatistic.raceData">
+                            {{ data | json }}
+                        </li>
+                    </ul>
+                </div>
+
                 <app-tab-nav [links]="navLinks"></app-tab-nav>
                 <router-outlet></router-outlet>
             </div>

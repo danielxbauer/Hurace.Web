@@ -55,6 +55,7 @@ $red: #d32f2f;
 .text-smaller { font-size: smaller; }
 
 // Background
+.bg-selected { background-color: rgba(0,0,0,.08); }
 .bg-danger { background-color: $red; }
 
 // Border

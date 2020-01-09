@@ -1,4 +1,6 @@
 <div [ngSwitch]="statistic.kind">
+    <div *ngSwitchCase="'Loading'">LOADING</div>
+
     <div *ngSwitchCase="'Data'" class="d-flex">
         <table mat-table [dataSource]="statistic.data" class="flex-1 mw-800px">
             <ng-container matColumnDef="currentPosition">
@@ -32,7 +34,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'bg-selected': currentSkierId === row.skierId }"></tr>
         </table>
     </div>
 </div>

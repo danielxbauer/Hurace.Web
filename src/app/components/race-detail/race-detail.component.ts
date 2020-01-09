@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 
-import { GetRaceById, GetRaceStatistic, GetAllSkiers, SelectRace } from 'src/app/actions';
-import { RaceStatisticEntry, RaceDto, SkierDto } from 'src/app/dtos';
-import { ApiResource, RunNumber, empty } from 'src/app/models';
+import { SelectRace, GetRaceStatistic } from 'src/app/actions';
+import { RaceDto, LiveStatisticDto } from 'src/app/dtos';
+import { ApiResource, empty } from 'src/app/models';
 import { hasSecondRun } from 'src/app/util';
-import { Props } from 'src/app/models/props.model';
 import { NavLink } from 'src/app/models/nav-link.model';
+
+import { RunStoppedReason } from 'src/app/models/run-stopped-reason.model';
 
 @Component({
     selector: 'app-race-detail',
@@ -15,8 +16,10 @@ import { NavLink } from 'src/app/models/nav-link.model';
     styleUrls: ['./race-detail.component.scss']
 })
 export class RaceDetailComponent implements OnInit {
-    public race: ApiResource<RaceDto> = null;
+    public race: ApiResource<RaceDto> = empty();
     public navLinks: NavLink[] = [];
+
+    public liveStatistic: LiveStatisticDto = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -29,6 +32,22 @@ export class RaceDetailComponent implements OnInit {
                 this.navLinks = hasSecondRun(race.data)
                     ? [{ path: '1', label: 'Run 1' }, { path: '2', label: 'Run 2' }]
                     : [{ path: '1', label: 'Run' }]
+            }
+        });
+
+        store.select(s => s.live.data).subscribe((data: { statistic: LiveStatisticDto, reason: RunStoppedReason }) => {
+
+            if (data.statistic == null
+                || this.race.kind !== 'Data'
+                || (this.race.kind == 'Data' && data.statistic.raceId !== this.race.data.id)
+            ) {
+                this.liveStatistic = null;
+                return;
+            }
+
+            this.liveStatistic = data.statistic;
+            if (data.reason === 'Finished' && this.race.kind == 'Data') {
+                this.store.dispatch(new GetRaceStatistic(this.race.data.id, this.liveStatistic.runNumber));
             }
         });
     }

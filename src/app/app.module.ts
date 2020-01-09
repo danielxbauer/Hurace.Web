@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
@@ -33,6 +33,12 @@ import { SeasonComponent } from './components/season/season.component';
 import { SeasonState } from './states/season.state';
 import { RaceStatisticComponent } from './components/race-statistic/race-statistic.component';
 import { TabNavComponent } from './components/tab-nav/tab-nav.component';
+import { LiveState } from './states/live.state';
+import { LiveService } from './services/live.service';
+
+function initSignalR(liveService: LiveService) {
+    return () => liveService.initSignalR();
+}
 
 @NgModule({
     declarations: [
@@ -75,13 +81,15 @@ import { TabNavComponent } from './components/tab-nav/tab-nav.component';
             CountryState,
             SkierState,
             RaceState,
-            SeasonState
+            SeasonState,
+            LiveState
         ]),
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
     ],
     providers: [
-        MatNativeDateModule
+        MatNativeDateModule,
+        { provide: APP_INITIALIZER, useFactory: initSignalR, deps: [LiveService], multi: true }
     ],
     bootstrap: [AppComponent]
 })

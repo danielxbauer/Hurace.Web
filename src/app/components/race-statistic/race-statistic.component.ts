@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Props, ApiResource, empty, RunNumber } from 'src/app/models';
-import { RaceStatisticEntry } from 'src/app/dtos';
+import { RaceStatisticEntry, LiveStatisticDto } from 'src/app/dtos';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { GetRaceStatistic } from 'src/app/actions';
@@ -12,10 +12,12 @@ import { GetRaceStatistic } from 'src/app/actions';
     styleUrls: ['./race-statistic.component.scss']
 })
 export class RaceStatisticComponent implements OnInit {
+    private raceId: number;
     private runNumber: RunNumber;
 
     public displayedColumns: Props<RaceStatisticEntry>;
     public statistic: ApiResource<RaceStatisticEntry[]> = empty();
+    public currentSkierId = -1;
 
     constructor(
         private route: ActivatedRoute,
@@ -28,14 +30,22 @@ export class RaceStatisticComponent implements OnInit {
                 this.displayedColumns = this.getDisplayedColumns(this.runNumber);
             }
         });
+
+        this.store.select(s => s.live.data.statistic).subscribe((statistic: LiveStatisticDto) => {
+            if (statistic != null && statistic.raceId === this.raceId && statistic.runNumber === this.runNumber) {
+                this.currentSkierId = statistic.skierId;
+            } else {
+                this.currentSkierId = -1;
+            }
+        })
     }
 
     ngOnInit() {
         combineLatest(this.route.parent.params, this.route.params).subscribe(values => {
-            const id = +values[0]['id'];
+            this.raceId = +values[0]['id'];
             this.runNumber = +values[1]['runNumber'] as RunNumber;
 
-            this.store.dispatch(new GetRaceStatistic(id, this.runNumber));
+            this.store.dispatch(new GetRaceStatistic(this.raceId, this.runNumber));
         });
     }
 
