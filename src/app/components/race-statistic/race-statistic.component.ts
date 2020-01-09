@@ -17,7 +17,8 @@ export class RaceStatisticComponent implements OnInit {
 
     public displayedColumns: Props<RaceStatisticEntry>;
     public statistic: ApiResource<RaceStatisticEntry[]> = empty();
-    public currentSkierId = -1;
+
+    public liveStatistic: LiveStatisticDto = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -32,11 +33,7 @@ export class RaceStatisticComponent implements OnInit {
         });
 
         this.store.select(s => s.live.data.statistic).subscribe((statistic: LiveStatisticDto) => {
-            if (statistic != null && statistic.raceId === this.raceId && statistic.runNumber === this.runNumber) {
-                this.currentSkierId = statistic.skierId;
-            } else {
-                this.currentSkierId = -1;
-            }
+            this.liveStatistic = statistic;
         })
     }
 
@@ -53,6 +50,13 @@ export class RaceStatisticComponent implements OnInit {
         return runNumber === 1
             ? ['currentPosition', 'skierId', 'skierCountry', 'time', 'deltaTimeLeadership']
             : ['currentPosition', 'deltaPosition', 'skierId', 'skierCountry', 'time', 'deltaTimeLeadership'];
+    }
+
+    public isCurrentRun(skierId: number) {
+        return this.liveStatistic != null
+            && this.liveStatistic.skierId === skierId
+            && this.liveStatistic.raceId === this.raceId
+            && this.liveStatistic.runNumber === this.runNumber;
     }
 
 }

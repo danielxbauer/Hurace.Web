@@ -24,7 +24,7 @@
             </ng-container>
 
             <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <th mat-header-cell *matHeaderCellDef> Total Time </th>
                 <td mat-cell *matCellDef="let element"> {{element.time}} </td>
             </ng-container>
 
@@ -34,7 +34,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'bg-selected': currentSkierId === row.skierId }"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'bg-selected': isCurrentRun(row.skierId) }"></tr>
         </table>
     </div>
 </div>

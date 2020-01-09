@@ -27,6 +27,8 @@ $red: #d32f2f;
 .ml-1 { margin-left: 5px; }
 .ml-2 { margin-left: 10px; }
 
+.mb-4 { margin-bottom: 20px!important; }
+
 // Display
 .d-flex { display: flex; }
 .flex-col { flex-direction: column; }
@@ -60,5 +62,6 @@ $red: #d32f2f;
 
 // Border
 .rounded { border-radius: 50%; }
+.border-1 { border: 1px solid; }
 .border-2 { border: 2px solid; }
-.border-danger { border-color: $red; }
+.border-danger { border-color: $red!important; }

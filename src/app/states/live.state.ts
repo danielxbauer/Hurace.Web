@@ -2,7 +2,7 @@ import { State, Action, StateContext, Select, Selector } from '@ngxs/store';
 
 import { ApiResource, empty, loading, data, error } from '../models';
 import { LiveStatisticDto } from '../dtos';
-import { LiveRunUpdate, LiveCurrentRunChange, LiveRunStopped } from '../actions/live.actions';
+import { LiveRunUpdate, LiveCurrentRunChange, LiveRunStopped  } from '../actions/live.actions';
 import { RunStoppedReason } from '../models/run-stopped-reason.model';
 
 type Context = StateContext<LiveStateModel>;

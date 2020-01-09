@@ -8,6 +8,6 @@ export interface LiveStatisticDto {
     countryCode: string,
     raceId: number,
     runNumber: RunNumber,
-    raceData: LiveRaceDataDto,
+    raceData: LiveRaceDataDto[],
     totalTime: string,
 }

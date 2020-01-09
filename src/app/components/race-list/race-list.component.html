@@ -20,7 +20,7 @@
                     <div class="d-flex flex-col">
                         <div class="text-bold">{{ race.name }}</div>
                         <div class="text-smaller pt-2px">
-                            {{ race.raceDate | date:'shortDate' }}
+                            {{ race.raceDate | date:'dd.MM.yyyy' }}
                             <span [class]="getGenderIcon(race.gender)"></span>
                             {{ formatRaceType(race.raceType) }}
                         </div>

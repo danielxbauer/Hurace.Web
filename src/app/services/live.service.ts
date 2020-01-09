@@ -4,6 +4,8 @@ import * as signalR from '@aspnet/signalr';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';
 import { LiveRunUpdate, LiveCurrentRunChange, LiveRunStopped } from '../actions/live.actions';
+import { LiveStatisticDto } from '../dtos';
+import { RunStoppedReason } from '../models/run-stopped-reason.model';
 
 @Injectable({
     providedIn: 'root'
@@ -30,12 +32,21 @@ export class LiveService {
             });
 
         connection.on("OnRunUpdate",
-            liveStatistic => this.store.dispatch(new LiveRunUpdate(liveStatistic)));
+            (liveStatistic: LiveStatisticDto) => {
+                liveStatistic.raceData.forEach(r => r.timeStamp = new Date(r.timeStamp));
+                this.store.dispatch(new LiveRunUpdate(liveStatistic));
+            });
 
         connection.on("OnCurrentRunChange",
-            liveStatistic => this.store.dispatch(new LiveCurrentRunChange(liveStatistic)));
+            (liveStatistic: LiveStatisticDto) => {
+                liveStatistic.raceData.forEach(r => r.timeStamp = new Date(r.timeStamp));
+                this.store.dispatch(new LiveCurrentRunChange(liveStatistic));
+            });
 
         connection.on("OnRunStopped",
-            (reason, liveStatistic) => this.store.dispatch(new LiveRunStopped(reason, liveStatistic)));
+            (reason: RunStoppedReason, liveStatistic: LiveStatisticDto) => {
+                liveStatistic.raceData.forEach(r => r.timeStamp = new Date(r.timeStamp));
+                this.store.dispatch(new LiveRunStopped(reason, liveStatistic));
+            });
     }
 }

@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 
 import { SelectRace, GetRaceStatistic } from 'src/app/actions';
-import { RaceDto, LiveStatisticDto } from 'src/app/dtos';
-import { ApiResource, empty } from 'src/app/models';
+import { RaceDto, LiveStatisticDto, LiveRaceDataDto } from 'src/app/dtos';
+import { ApiResource, empty, Props } from 'src/app/models';
 import { hasSecondRun } from 'src/app/util';
 import { NavLink } from 'src/app/models/nav-link.model';
 
@@ -20,6 +20,7 @@ export class RaceDetailComponent implements OnInit {
     public navLinks: NavLink[] = [];
 
     public liveStatistic: LiveStatisticDto = null;
+    public displayedColumns: Props<LiveRaceDataDto> = ['sensorId', 'totalTime', 'timeStamp'];
 
     constructor(
         private route: ActivatedRoute,
@@ -36,18 +37,10 @@ export class RaceDetailComponent implements OnInit {
         });
 
         store.select(s => s.live.data).subscribe((data: { statistic: LiveStatisticDto, reason: RunStoppedReason }) => {
-
-            if (data.statistic == null
-                || this.race.kind !== 'Data'
-                || (this.race.kind == 'Data' && data.statistic.raceId !== this.race.data.id)
-            ) {
-                this.liveStatistic = null;
-                return;
-            }
-
             this.liveStatistic = data.statistic;
-            if (data.reason === 'Finished' && this.race.kind == 'Data') {
-                this.store.dispatch(new GetRaceStatistic(this.race.data.id, this.liveStatistic.runNumber));
+
+            if (this.showLiveStatistic() && data.reason === 'Finished') {
+                this.store.dispatch(new GetRaceStatistic((<any>this.race).data.id, this.liveStatistic.runNumber));
             }
         });
     }
@@ -57,5 +50,11 @@ export class RaceDetailComponent implements OnInit {
             const id = +params['id'];
             this.store.dispatch(new SelectRace(id));
         });
+    }
+
+    showLiveStatistic() {
+        return this.liveStatistic != null
+            && this.race.kind === 'Data'
+            && this.liveStatistic.raceId === this.race.data.id;
     }
 }

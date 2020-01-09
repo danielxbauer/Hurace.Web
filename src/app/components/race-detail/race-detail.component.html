@@ -24,16 +24,40 @@
                 <p>{{ race.data.description }}</p>
 
                 <!-- Current Skier -->
-                <div *ngIf="liveStatistic != null">
-                    <h2>Current Skier: {{ liveStatistic.firstName }} {{ liveStatistic.lastName }}</h2>
-                    <p>Run: {{ liveStatistic.runNumber }}</p>
-                    <p>{{ liveStatistic.countryCode }}</p>
-                    <p>Total: {{ liveStatistic.totalTime }}</p>
-                    <ul>
-                        <li *ngFor="let data of liveStatistic.raceData">
-                            {{ data | json }}
-                        </li>
-                    </ul>
+                <div *ngIf="showLiveStatistic()"
+                    class="d-flex flex-col mw-800px shadow mb-4 border-1 border-danger">
+
+                    <div class="p-4">
+                        <h2 class="m-0">
+                            <b>{{ liveStatistic.countryCode }}</b>
+                            {{ liveStatistic.firstName }} {{ liveStatistic.lastName }}
+                        </h2>
+
+                        <p>Run: {{ liveStatistic.runNumber }}</p>
+                    </div>
+
+                    <table *ngIf="liveStatistic.raceData.length > 0"
+                            mat-table [dataSource]="liveStatistic.raceData" style="width: 100%;">
+                        <ng-container matColumnDef="sensorId">
+                            <th mat-header-cell *matHeaderCellDef> Sensor </th>
+                            <td mat-cell *matCellDef="let element"> {{element.sensorId}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalTime">
+                            <th mat-header-cell *matHeaderCellDef class="text-bold"> Total Time </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.totalTime }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="timeStamp">
+                            <th mat-header-cell *matHeaderCellDef> Time Stamp </th>
+                            <td mat-cell *matCellDef="let element"> {{element.timeStamp | date:'dd.MM.yyyy hh:mm:ss'}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <h3 *ngIf="liveStatistic.raceData.length > 0" class="p-4">Total: {{ liveStatistic.totalTime }}</h3>
                 </div>
 
                 <app-tab-nav [links]="navLinks"></app-tab-nav>
