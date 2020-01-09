@@ -7,9 +7,10 @@
             </mat-form-field>
         </div>
 
-        <div *ngIf="filteredSkiers.length === 0" class="px-2">
-            Nothing found
-        </div>
+
+        <app-icon-info icon="image-filter-hdr" *ngIf="filteredSkiers.length === 0">
+            no skier found
+        </app-icon-info>
 
         <mat-nav-list class="flex-1 mh-100 overflow-auto p-0">
             <a mat-list-item *ngFor="let skier of filteredSkiers" routerLink="{{ skier.id }}" routerLinkActive="active">
