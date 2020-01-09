@@ -26,7 +26,7 @@
         ERROR WHILE LOADING :(
     </div>
 
-    <div class="d-flex justify-content-end p-2">
+    <div class="d-flex justify-content-end p-2" *ngIf="auth.loggedIn">
         <button mat-raised-button color="primary" (click)="new()">New</button>
     </div>
 </div>

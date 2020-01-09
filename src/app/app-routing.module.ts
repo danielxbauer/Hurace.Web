@@ -7,11 +7,12 @@ import { RaceListComponent } from './components/race-list/race-list.component';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 import { SeasonComponent } from './components/season/season.component';
 import { RaceStatisticComponent } from './components/race-statistic/race-statistic.component';
+import { SkierDetailComponent } from './components/skier-detail/skier-detail.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'skiers', pathMatch: 'full' },
     { path: 'skiers', component: SkierListComponent, children: [
-        { path: ':id', component: SkierEditComponent },
+        { path: ':id', component: SkierDetailComponent },
         { path: '**', component: NothingSelectedComponent }
     ] },
     { path: 'races', component: RaceListComponent, children: [

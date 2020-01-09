@@ -1,0 +1,15 @@
+<div [ngSwitch]="skier.kind" class="flex-1 d-flex flex-col">
+
+    <ng-container *ngSwitchCase="'Data'">
+        <app-skier-info *ngIf="!auth.loggedIn" [skier]="skier.data"></app-skier-info>
+        <app-skier-edit *ngIf="auth.loggedIn" [skier]="skier.data"></app-skier-edit>
+    </ng-container>
+
+    <div *ngSwitchCase="'Loading'" class="d-flex flex-1 align-center p-4">
+        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
+        ERROR WHILE LOADING :(
+    </div>
+</div>

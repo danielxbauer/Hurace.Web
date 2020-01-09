@@ -5,6 +5,7 @@ import { SkierDto } from 'src/app/dtos';
 import { GetAllSkiers, NewSkier } from 'src/app/actions';
 import { fullName } from 'src/app/util';
 import { ApiResource, data, empty } from 'src/app/models';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-skier-list',
@@ -29,7 +30,8 @@ export class SkierListComponent implements OnInit {
     }
 
     constructor(
-        private store: Store
+        private store: Store,
+        public auth: AuthService
     ) {
         store.select(s => s.skier.all)
             .subscribe(skiers => this.skiers = skiers);

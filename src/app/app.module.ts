@@ -35,6 +35,9 @@ import { RaceStatisticComponent } from './components/race-statistic/race-statist
 import { TabNavComponent } from './components/tab-nav/tab-nav.component';
 import { LiveState } from './states/live.state';
 import { LiveService } from './services/live.service';
+import { SkierDetailComponent } from './components/skier-detail/skier-detail.component';
+import { DataFieldComponent } from './components/data-field/data-field.component';
+import { SkierInfoComponent } from './components/skier-info/skier-info.component';
 
 function initSignalR(liveService: LiveService) {
     return () => liveService.initSignalR();
@@ -42,6 +45,7 @@ function initSignalR(liveService: LiveService) {
 
 @NgModule({
     declarations: [
+        // Components
         AppComponent,
         SkierListComponent,
         SkierEditComponent,
@@ -50,7 +54,10 @@ function initSignalR(liveService: LiveService) {
         RaceDetailComponent,
         SeasonComponent,
         RaceStatisticComponent,
-        TabNavComponent
+        TabNavComponent,
+        SkierDetailComponent,
+        DataFieldComponent,
+        SkierInfoComponent,
     ],
     imports: [
         BrowserModule,
