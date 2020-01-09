@@ -38,6 +38,16 @@
                             <td mat-cell *matCellDef="let element"> {{ formatGender(element.gender) }} </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container [ngSwitch]="element.raceState">
+                                    <a *ngSwitchCase="1" mat-button color="warn" [routerLink]="['/races', element.id]">Watch live</a>
+                                    <a *ngSwitchCase="2" mat-button color="primary" [routerLink]="['/races', element.id]">Show results</a>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>

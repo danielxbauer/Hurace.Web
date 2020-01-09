@@ -25,7 +25,7 @@ interface SeasonFilter {
 })
 export class SeasonComponent implements OnInit {
     public races: ApiResource<RaceDto[]>;
-    public displayedColumns: Props<RaceDto> = ['name', 'raceDate', 'gender'];
+    public displayedColumns: Props<RaceDto & { actions: any }> = ['name', 'raceDate', 'gender', 'actions'];
 
     public filter: SeasonFilter = { from: new Date(), to: new Date() };
     public groups: RaceGroup[];
@@ -37,11 +37,7 @@ export class SeasonComponent implements OnInit {
             this.races = races;
 
             if (races.kind === 'Data') {
-                // this.groups = [RaceType.Slalom, RaceType.GiantSlalom, RaceType.SuperG, RaceType.Downhill]
-                //     .map(raceType => ({
-                //         raceType: raceType,
-                //         data: races.data.filter(r => r.raceType === raceType)
-                //     }));
+                this.filter.from.setFullYear(2019);
                 this.filterChange();
             }
         });
