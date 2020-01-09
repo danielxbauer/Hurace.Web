@@ -7,15 +7,12 @@ import { RaceType } from 'src/app/enums';
 import { formatRaceType, formatGender } from 'src/app/util';
 import { Props } from 'src/app/models/props.model';
 import { SeasonStateModel } from 'src/app/states/season.state';
+import { GetAllRaces } from 'src/app/actions';
+import { SeasonDto } from 'src/app/dtos/season.dto';
 
 interface RaceGroup {
     raceType: RaceType,
     data: RaceDto[]
-}
-
-interface SeasonFilter {
-    from: Date,
-    to: Date
 }
 
 @Component({
@@ -25,53 +22,57 @@ interface SeasonFilter {
 })
 export class SeasonComponent implements OnInit {
     public races: ApiResource<RaceDto[]>;
+    public seasons: ApiResource<SeasonDto[]>;
+
+    public selectedSeason: SeasonDto = null;
+
     public displayedColumns: Props<RaceDto & { actions: any }> = ['name', 'raceDate', 'gender', 'actions'];
 
-    public filter: SeasonFilter = { from: new Date(), to: new Date() };
+    public total: number;
     public groups: RaceGroup[];
 
     constructor(
         private store: Store
     ) {
-        this.store.select(s => s.season.races).subscribe((races: ApiResource<RaceDto[]>) => {
-            this.races = races;
+        this.store.select(s => s.season.seasons).subscribe((seasons: ApiResource<SeasonDto[]>) => {
+            this.seasons = seasons;
+            this.selectedSeason = null;
 
-            if (races.kind === 'Data') {
-                this.filter.from.setFullYear(2019);
-                this.filterChange();
+            if (seasons.kind === 'Data') {
+                this.selectedSeason = seasons.data[0];
             }
         });
+
+        this.store.select(s => s.race.races).subscribe((races: ApiResource<RaceDto[]>) => {
+            this.races = races;
+            this.groupRaces();
+        })
     }
 
     ngOnInit() {
-        this.store.dispatch(new GetSeasons());
+        this.store.dispatch(new GetSeasons()).subscribe(() => {
+            this.store.dispatch(new GetAllRaces());
+        });
     }
 
-    filterFromChange(from: Date) {
-        this.filter.from = from;
-        this.filterChange();
-    }
+    private groupRaces() {
+        if (this.races.kind === 'Data' && this.selectedSeason != null) {
+            const races = this.races.data
+                .filter(r => r.raceDate >= this.selectedSeason.from
+                    && r.raceDate <= this.selectedSeason.to);
 
-    filterToChange(to: Date) {
-        this.filter.to = to;
-        this.filterChange();
-    }
-
-    filterChange() {
-        console.log(this.filter);
-
-        if (this.races.kind === 'Data') {
-            const races = this.races.data;
-
+            this.total = races.length;
             this.groups = [RaceType.Slalom, RaceType.GiantSlalom, RaceType.SuperG, RaceType.Downhill]
                 .map(raceType => ({
                     raceType: raceType,
-                    data: races
-                        .filter(r => r.raceType === raceType)
-                        .filter(r => r.raceDate >= this.filter.from
-                                  && r.raceDate <= this.filter.to)
+                    data: races.filter(r => r.raceType === raceType)
                 }));
         }
+    }
+
+    public selectionChanged(season: SeasonDto) {
+        this.selectedSeason = season;
+        this.groupRaces();
     }
 
     formatRaceType = formatRaceType;

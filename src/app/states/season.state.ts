@@ -1,19 +1,19 @@
 import { StateContext, State, Action } from '@ngxs/store';
 import { ApiResource, empty, loading, data, error } from '../models';
-import { RaceDto } from '../dtos';
-import { RaceService } from '../services/race.service';
 import { GetSeasons } from '../actions/season.actions';
 import { map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { SeasonDto } from '../dtos/season.dto';
+import { SeasonService } from '../services/season.service';
 
 type Context = StateContext<SeasonStateModel>;
 
 export interface SeasonStateModel {
-    races: ApiResource<RaceDto[]>
+    seasons: ApiResource<SeasonDto[]>
 }
 
 const initialState: SeasonStateModel = {
-    races: empty()
+    seasons: empty()
 };
 
 @State<SeasonStateModel>({
@@ -22,21 +22,24 @@ const initialState: SeasonStateModel = {
 })
 export class SeasonState {
     constructor(
-        private raceService: RaceService
+        private seasonService: SeasonService
     ) { }
 
     @Action(GetSeasons)
     getSeasons(context: Context) {
-        context.patchState({ races: loading() });
+        context.patchState({ seasons: loading() });
 
-        return this.raceService.getAll().pipe(
-            map(races => {
-                races.forEach(r => r.raceDate = new Date(r.raceDate));
-                return races;
+        return this.seasonService.getAllSeasons().pipe(
+            map(seasons => {
+                seasons.forEach(s => {
+                    s.from = new Date(s.from);
+                    s.to = new Date(s.to);
+                });
+                return seasons;
             }),
-            tap(races => context.patchState({ races: data(races) })),
+            tap(seasons => context.patchState({ seasons: data(seasons) })),
             catchError(e => {
-                context.patchState({ races: error(e) });
+                context.patchState({ seasons: error(e) });
                 return of(e);
             })
         );

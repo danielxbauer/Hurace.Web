@@ -6,7 +6,6 @@ import { RaceDto, RaceStatisticEntry, RaceStatisticEntryDto, SkierDto } from '..
 import { ApiResource, empty, loading, data, error } from '../models';
 import { RaceService } from '../services/race.service';
 import { GetAllRaces, GetRaceById, GetRaceStatistic, SelectRace, GetAllSkiers } from '../actions';
-import { RaceState as RaceStatus } from '../enums';
 import { StatisticService } from '../services/statistic.service';
 import { SkierState } from './skier.state';
 import { mapStatisticDto } from '../util';
@@ -29,7 +28,7 @@ const initialState: RaceStateModel = {
     name: 'race',
     defaults: initialState
 })
-export class RaceState { // TODO: rename
+export class RaceState {
     constructor(
         private store: Store,
         private raceService: RaceService,

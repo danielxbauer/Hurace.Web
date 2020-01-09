@@ -3,23 +3,16 @@
         <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
     </div>
 
-    <ng-container *ngSwitchCase="'Data'">
-        <div>
-            <mat-form-field class="mr-2">
-                <input matInput [matDatepicker]="pickerFrom" placeholder="From" [ngModel]="filter.from" (ngModelChange)="filterFromChange($event)"
-                    autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-                <mat-datepicker #pickerFrom></mat-datepicker>
-            </mat-form-field>
+    <div *ngSwitchCase="'Data'" class="mw-800px">
+        <mat-form-field *ngIf="seasons.kind == 'Data'">
+            <mat-select placeholder="Season" [ngModel]="selectedSeason" (ngModelChange)="selectionChanged($event)">
+                <mat-option *ngFor="let season of seasons.data" [value]="season">{{season.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-            <mat-form-field class="ml-2">
-                <input matInput [matDatepicker]="pickerTo" placeholder="To" [ngModel]="filter.to" (ngModelChange)="filterToChange($event)" autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-                <mat-datepicker #pickerTo></mat-datepicker>
-            </mat-form-field>
-        </div>
+        <h3>{{ total }} races</h3>
 
-        <mat-tab-group class="no-shrink mw-800px">
+        <mat-tab-group class="no-shrink">
             <mat-tab *ngFor="let group of groups" [label]="formatRaceType(group.raceType)">
                 <div class="d-flex flex-col">
                     <table mat-table [dataSource]="group.data" class="flex-1">
@@ -42,8 +35,10 @@
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element">
                                 <ng-container [ngSwitch]="element.raceState">
-                                    <a *ngSwitchCase="1" mat-button color="warn" [routerLink]="['/races', element.id]">Watch live</a>
-                                    <a *ngSwitchCase="2" mat-button color="primary" [routerLink]="['/races', element.id]">Show results</a>
+                                    <a *ngSwitchCase="1" mat-button color="warn"
+                                        [routerLink]="['/races', element.id]">Watch live</a>
+                                    <a *ngSwitchCase="2" mat-button color="primary"
+                                        [routerLink]="['/races', element.id]">Show results</a>
                                 </ng-container>
                             </td>
                         </ng-container>
@@ -54,7 +49,7 @@
                 </div>
             </mat-tab>
         </mat-tab-group>
-    </ng-container>
+    </div>
 
     <div *ngSwitchCase="'Error'" class="d-flex flex-1 align-center p-4">
         ERROR WHILE LOADING :(
