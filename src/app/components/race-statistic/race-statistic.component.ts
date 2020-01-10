@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Props, ApiResource, empty, RunNumber } from 'src/app/models';
-import { RaceStatisticEntry, LiveStatisticDto } from 'src/app/dtos';
+import { Props, ApiResource, empty, RunNumber, RaceStatisticEntry } from 'src/app/models';
+import { LiveStatisticDto } from 'src/app/dtos';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { GetRaceStatistic } from 'src/app/actions';

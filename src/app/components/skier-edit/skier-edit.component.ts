@@ -1,16 +1,13 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { SkierDto } from 'src/app/dtos';
 import { Gender } from 'src/app/enums';
-import { getErrorMessage, hasError, newSkier } from 'src/app/util';
+import { getErrorMessage, hasError, newSkier, lengthValidator } from 'src/app/util';
 import { GetAllCountries, SaveSkier, RemoveSkier } from 'src/app/actions';
 import { AuthService } from 'src/app/services/auth.service';
-
-// TODO: put somewhere else
-export const length = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
 @Component({
     selector: 'app-skier-edit',
@@ -46,13 +43,13 @@ export class SkierEditComponent implements OnInit, OnChanges {
 
     private initForm() {
         return this.fb.group({
-            firstName: ['', length(2, 100)],
-            lastName: ['', length(2, 100)],
+            firstName: ['', lengthValidator(2, 100)],
+            lastName: ['', lengthValidator(2, 100)],
             gender: [Gender.Male],
-            countryCode: ['', length(3, 3)],
-            birthDate: [null], // TODO:
+            countryCode: ['', lengthValidator(3, 3)],
+            birthDate: [null],
             isActive: [true],
-            image: [null, Validators.maxLength(500)] // TODO: maxlength!
+            image: [null, Validators.maxLength(500)]
         })
     }
 
@@ -64,7 +61,6 @@ export class SkierEditComponent implements OnInit, OnChanges {
                 ...this.skierForm.getRawValue()
             };
 
-            // TODO: Errorhandling
             this.store.dispatch(new SaveSkier(skier));
         }
     }

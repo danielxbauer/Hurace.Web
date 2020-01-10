@@ -1,5 +1,6 @@
-import { SkierDto, RaceStatisticEntry, RaceStatisticEntryDto, RaceDto } from '../dtos';
+import { SkierDto, RaceStatisticEntryDto, RaceDto } from '../dtos';
 import { Gender, RaceType, RaceState } from '../enums';
+import { RaceStatisticEntry } from '../models';
 
 export const fullName = (s: SkierDto) => `${s.firstName} ${s.lastName}`;
 

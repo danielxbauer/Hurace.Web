@@ -6,7 +6,7 @@ export interface SkierDto {
     lastName: string;
     gender: Gender;
     countryCode: string;
-    birthDate: Date | null; // TODO!
+    birthDate: Date | null;
     image: string;
     isActive: boolean;
 }

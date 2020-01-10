@@ -1,4 +1,6 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
+
+export const lengthValidator = (min: number, max: number) => [Validators.required, Validators.minLength(min), Validators.maxLength(max)];
 
 export const hasError = (formGroup: FormGroup, formControlName: string) =>
     formGroup.get(formControlName).errors != null;

@@ -2,8 +2,8 @@ import { StateContext, State, Action, Store, Selector } from '@ngxs/store';
 import { map, tap, catchError } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
 
-import { RaceDto, RaceStatisticEntry, RaceStatisticEntryDto, SkierDto } from '../dtos';
-import { ApiResource, empty, loading, data, error } from '../models';
+import { RaceDto } from '../dtos';
+import { ApiResource, empty, loading, data, error, RaceStatisticEntry } from '../models';
 import { RaceService } from '../services/race.service';
 import { GetAllRaces, GetRaceById, GetRaceStatistic, SelectRace, GetAllSkiers } from '../actions';
 import { StatisticService } from '../services/statistic.service';
@@ -100,7 +100,7 @@ export class RaceState {
             }),
             tap(statistic => context.patchState({ statistic: data(statistic) })),
             catchError(e => {
-                context.patchState({ statistic: error(e) }); // TODO: message?!
+                context.patchState({ statistic: error(e) });
                 return of([]);
             })
         );
