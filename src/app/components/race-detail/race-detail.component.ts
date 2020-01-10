@@ -20,7 +20,6 @@ export class RaceDetailComponent implements OnInit {
     public navLinks: NavLink[] = [];
 
     public liveStatistic: LiveStatisticDto = null;
-    public displayedColumns: Props<LiveRaceDataDto> = ['sensorId', 'totalTime', 'timeStamp'];
 
     constructor(
         private route: ActivatedRoute,
