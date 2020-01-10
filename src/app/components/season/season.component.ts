@@ -6,7 +6,6 @@ import { ApiResource } from 'src/app/models';
 import { RaceType } from 'src/app/enums';
 import { formatRaceType, formatGender } from 'src/app/util';
 import { Props } from 'src/app/models/props.model';
-import { SeasonStateModel } from 'src/app/states/season.state';
 import { GetAllRaces } from 'src/app/actions';
 import { SeasonDto } from 'src/app/dtos/season.dto';
 

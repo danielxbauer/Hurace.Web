@@ -1,17 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavLink } from 'src/app/models/nav-link.model';
 
 @Component({
     selector: 'app-tab-nav',
-    templateUrl: './tab-nav.component.html',
-    styleUrls: ['./tab-nav.component.scss']
+    templateUrl: './tab-nav.component.html'
 })
-export class TabNavComponent implements OnInit {
+export class TabNavComponent {
     @Input() public links: NavLink[] = [];
-
-    constructor() { }
-
-    ngOnInit() {
-    }
-
 }

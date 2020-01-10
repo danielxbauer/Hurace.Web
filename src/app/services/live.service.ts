@@ -24,9 +24,7 @@ export class LiveService {
             .build();
 
         connection.start()
-            .then(() => {
-                console.log('Connected!');
-            })
+            .then(() => console.log('Connected to SignalR.'))
             .catch((err) => {
                 return console.error(err.toString());
             });

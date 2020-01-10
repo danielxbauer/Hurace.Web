@@ -8,8 +8,7 @@ import { GetRaceStatistic } from 'src/app/actions';
 
 @Component({
     selector: 'app-race-statistic',
-    templateUrl: './race-statistic.component.html',
-    styleUrls: ['./race-statistic.component.scss']
+    templateUrl: './race-statistic.component.html'
 })
 export class RaceStatisticComponent implements OnInit {
     private raceId: number;

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 
 import { SelectRace, GetRaceStatistic } from 'src/app/actions';
-import { RaceDto, LiveStatisticDto, LiveRaceDataDto } from 'src/app/dtos';
-import { ApiResource, empty, Props } from 'src/app/models';
+import { RaceDto, LiveStatisticDto } from 'src/app/dtos';
+import { ApiResource, empty } from 'src/app/models';
 import { hasSecondRun } from 'src/app/util';
 import { NavLink } from 'src/app/models/nav-link.model';
 
