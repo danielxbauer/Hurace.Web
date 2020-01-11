@@ -1,0 +1,6 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "latex-workshop.latex.autoBuild.run": "never",
+    "editor.wordWrap": "on",
+    "editor.wrappingIndent": "indent"
+}

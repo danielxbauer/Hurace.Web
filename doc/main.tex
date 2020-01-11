@@ -1,0 +1,119 @@
+%%% ----- general packages and settings ----- %%%
+\documentclass[a4paper, ngerman, bibliography=totoc]{scrreprt}  %%, listof=totoc
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{babel}
+\usepackage{float}
+\usepackage{microtype} % fixes line breaks
+
+%%% ----- bibliography ----- %%%
+\usepackage[babel, german=quotes]{csquotes}
+\usepackage[backend=biber, style=alphabetic-verb]{biblatex}
+\bibliography{literatur}
+\DeclareFieldFormat[article]{title}{#1\isdot} % http://golatex.de/formatierung-des-literaturverzeichnisses-mit-biblatex-t3988.html
+
+%%% ----- references (http://tex.stackexchange.com/a/83051) ----- %%%
+\usepackage{varioref}
+\usepackage[breaklinks]{hyperref}
+\usepackage{cleveref}
+\crefname{lstlisting}{Quelltext}{Quelltext}
+
+%%% ----- listings ----- %%%
+\usepackage{xcolor} % http://tex.stackexchange.com/a/150377
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Quelltext}
+\renewcommand*{\lstlistlistingname}{Quelltextverzeichnis}
+
+\definecolor{strings}{rgb}{0.69, 0.196, 0.267}
+\definecolor{comments}{rgb}{0.247, 0.518, 0.173}
+\definecolor{keywords}{rgb}{0.114, 0.180, 0.992}
+\definecolor{linenumbers}{rgb}{0.25, 0.25, 0.25}
+\definecolor{linebreakmarker}{rgb}{0.25, 0.25, 0.25}
+
+\lstset{ %
+  belowcaptionskip=1\baselineskip{},
+  breaklines=true,
+  postbreak=\mbox{\textcolor{linebreakmarker}{$\hookrightarrow$}\space},
+  captionpos=b,
+  commentstyle=\color{comments},
+  keywordstyle=\color{keywords}\bfseries,
+  morecomment=[s][\color{comments}]{/**}{*/},
+  numbers=left,
+  numbersep=16pt,
+  numberstyle=\tiny\color{linenumbers},
+  stringstyle=\color{strings},
+  tabsize=2
+}
+
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\lstset{language=[Sharp]C,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  escapeinside={(*@}{@*)},
+  commentstyle=\color{greencomments},
+  keywordstyle=\color{bluekeywords},
+  stringstyle=\color{redstrings},
+  basicstyle=\ttfamily,
+  numberstyle=\tiny\color{linenumbers},
+  morekeywords={ var, abstract, event, new, struct,
+  as, explicit, null, switch,
+  base, extern, object, this,
+  bool, false, operator, throw,
+  break, finally, out, true,
+  byte, fixed, override, try,
+  case, float, params, typeof,
+  catch, for, private, uint,
+  char, foreach, protected, ulong,
+  checked, goto, public, unchecked,
+  class, if, readonly, unsafe,
+  const, implicit, ref, ushort,
+  continue, in, return, using,
+  decimal, int, sbyte, virtual,
+  default, interface, sealed, volatile,
+  delegate, internal, short, void,
+  do, is, sizeof, while,
+  double, lock, stackalloc,
+  else, long, static,
+  enum, namespace, string}
+}
+
+%%% ----- graphics ----- %%%
+\usepackage{graphicx}
+
+%%% ----- fix underscore problems ----- %%%
+\usepackage[strings]{underscore}
+
+%%% ----- prevent word breaks ----- %%%
+\hyphenation{ECMAScript}
+
+%%% ----- custom commands ----- %%%
+% - circled numbers (http://tex.stackexchange.com/a/7045)
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+% - z.B. (http://latex.hpfsc.de/content/latex_tipps_und_tricks/eigene_kommandos/)
+\newcommand{\zB}{z.\,B. }
+
+% TEMPORARY FIX: https://tex.stackexchange.com/questions/83440/inputenc-error-unicode-char-u8-not-set-up-for-use-with-latex
+\DeclareUnicodeCharacter{00A0}{ }
+
+
+%%% ---------- Document Data ----------
+\title{Hurace.Web}
+\author{Bauer, Daniel}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setcounter{page}{1}
+\tableofcontents
+\include{chapters/Aufbau}
+\listoffigures{}
+\lstlistoflistings{}
+\end{document}

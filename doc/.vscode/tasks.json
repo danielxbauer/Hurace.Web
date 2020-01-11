@@ -1,0 +1,24 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "main",
+            "isShellCommand": true,
+            "command": "docker",
+            "echoCommand": true,
+            "args": [
+                "run",
+                "--rm",
+                "-v=%cd%:/data",
+                "janstuemmel/latex",
+                "sh",
+                "-c",
+                "mkdir -p dist/ && find . -type d -not -path \"./dist\" | cpio -pdvm dist/ && pdflatex -output-directory=dist main && biber dist/main && pdflatex -output-directory=dist main && pdflatex -output-directory=dist main && cp dist/main.pdf ./ 2>/dev/null ; rm -rf dist/"
+            ]
+        }
+    ]
+}
