@@ -1,0 +1,19 @@
+\chapter{Technologien}
+Die Webanwendung \emph{Hurace.Web} wurde wie gefordert mit dem SPA-Framework \emph{Angular} (in der Version 8.2) entwickelt.
+Um die Entwicklung zu vereinfachen wurden außerdem folgende externe Bibliotheken verwendet:
+
+\section{Angular Material}
+\emph{Angular Material}\footnote{\url{https://material.angular.io/}} bietet Angular-Komponenten (\zB Formularelemente, Navigationsleiste, Lade-Anzeige, ...) im Material-Design von Google an.
+Da auch die Desktopanwendung von Hurace im Material-Design gestaltet wurde, ergibt die erneute Verwendung in der Webanwendung ein einheitliches Design für den Benutzer.
+
+\section{ngxs}
+\emph{ngxs}\footnote{\url{https://www.ngxs.io/}} ist eine Zustandsverwaltungs-Bibliothek die nach dem CQRS-Muster entworfen und ähnlich zu \emph{Redux}\footnote{\url{https://redux.js.org/}} bzw. \emph{ngrx}\footnote{\url{https://ngrx.io/}} aufgebaut ist.
+Durch den Einsatz von \emph{ngxs} kann die Logik zum Laden oder Verändern von Daten (anstatt in den Komponenten) in einen (bzw. mehrere) Service ausgelagert werden, der den Applikationszustand managet.
+Da der Applikationszustand nur zentral verändert werden kann können Zustandsveränderungen einfacher verstanden und analysiert werden.
+
+\section{Auth0}
+\emph{Auth0}\footnote{\url{https://auth0.com/}} kümmert sich um das Authentifizieren in der Webanwendung.
+
+\section{SignalR}
+\emph{SignalR}\footnote{\url{https://dotnet.microsoft.com/apps/aspnet/signalr}} wird eingesetzt damit Echtzeitdaten eines Liverennens, wie aktuelle LäuferIn und Zwischenzeiten, vom ASP.NET-Core-Server an die Webanwendung übertragen werden können.
+Dadurch muss die Webanwendung nicht alle \emph{n} Sekunden nachfragen, ob es schon neue Zwischenzeiten für ein Rennen gibt, sondern wird automatisch benachrichtigt.
