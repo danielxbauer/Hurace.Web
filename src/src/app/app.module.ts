@@ -42,6 +42,7 @@ import { ErrorInfoComponent } from './components/shared/error-info/error-info.co
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { IconInfoComponent } from './components/shared/icon-info/icon-info.component';
 import { LiveStatisticComponent } from './components/live-statistic/live-statistic.component';
+import { environment } from 'src/environments/environment';
 
 function initSignalR(liveService: LiveService) {
     return () => liveService.initSignalR();
@@ -98,7 +99,7 @@ function initSignalR(liveService: LiveService) {
             RaceState,
             SeasonState,
             LiveState
-        ]),
+        ], { developmentMode: !environment.production }),
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
     ],
