@@ -66,3 +66,13 @@ constructor(private store: Store) {
         });
 }
 \end{lstlisting}
+
+Über die Browsererweiterung \emph{Redux DevTools} können außerdem alle Zustandsänderungen der jeweiligen Ereignisse verfolgt werden.
+Voraussetzung ist die Registrierung der \emph{Redux DevTools} im Angular-Module mittels \emph{NgxsReduxDevtoolsPluginModule.forRoot()}.
+\cref{fig:reduxDevTools} zeigt den Applikationszustand nach Laden eines Skierläufers.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/redux-dev-tool}
+    \caption{Browsererweiterung Redux DevTools}
+\label{fig:reduxDevTools}
+\end{figure}
