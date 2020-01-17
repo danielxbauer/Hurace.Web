@@ -12,7 +12,8 @@ export const newSkier = (): SkierDto => ({
     countryCode: null,
     birthDate: null,
     isActive: true,
-    image: null
+    image: null,
+    isRemoved: false
 });
 
 export const formatGender = (gender: Gender) => {

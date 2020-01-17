@@ -18,12 +18,14 @@ export class SkierListComponent implements OnInit {
 
     public get filteredSkiers(): SkierDto[] {
         if (this.skiers.kind == 'Data') {
+            const skiers = this.skiers.data.filter(s => !s.isRemoved);
+
             if (this.filter == null) {
-                return this.skiers.data;
+                return skiers;
             }
 
             const filter = this.filter.toLowerCase();
-            return this.skiers.data.filter(s => `${s.countryCode} ${fullName(s)}`.toLowerCase().includes(filter));
+            return skiers.filter(s => `${s.countryCode} ${fullName(s)}`.toLowerCase().includes(filter));
         }
 
         return [];
@@ -34,7 +36,7 @@ export class SkierListComponent implements OnInit {
         public auth: AuthService
     ) {
         store.select(s => s.skier.all)
-            .subscribe(skiers => this.skiers = skiers);
+            .subscribe((skiers: ApiResource<SkierDto[]>) => this.skiers = skiers);
     }
 
     ngOnInit() {

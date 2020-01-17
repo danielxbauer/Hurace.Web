@@ -9,4 +9,5 @@ export interface SkierDto {
     birthDate: Date | null;
     image: string;
     isActive: boolean;
+    isRemoved: boolean;
 }
