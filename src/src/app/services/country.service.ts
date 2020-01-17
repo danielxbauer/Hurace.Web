@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
+import { LocationDto } from '../dtos';
 
 @Injectable({
     providedIn: 'root'
@@ -15,5 +16,9 @@ export class CountryService {
 
     public getCountryCodes() {
         return this.http.get<string[]>(`${this.baseUrl}/country`);
+    }
+
+    public getLocations() {
+        return this.http.get<LocationDto[]>(this.baseUrl);
     }
 }

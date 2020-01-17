@@ -25,7 +25,7 @@ export class SkierEditComponent implements OnInit, OnChanges {
         public auth: AuthService,
         private store: Store
     ) {
-        this.countryCodes$ = this.store.select(state => state.countries);
+        this.countryCodes$ = this.store.select(state => state.countries.countryCodes);
     }
 
     ngOnInit() {

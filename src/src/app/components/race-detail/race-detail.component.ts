@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 
 import { SelectRace, GetRaceStatistic } from 'src/app/actions';
-import { RaceDto, LiveStatisticDto } from 'src/app/dtos';
+import { RaceDto, LiveStatisticDto, LocationDto } from 'src/app/dtos';
 import { ApiResource, empty } from 'src/app/models';
 import { hasSecondRun } from 'src/app/util';
 import { NavLink } from 'src/app/models/nav-link.model';
@@ -20,6 +20,7 @@ export class RaceDetailComponent implements OnInit {
     public navLinks: NavLink[] = [];
 
     public liveStatistic: LiveStatisticDto = null;
+    public locations: LocationDto[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -42,6 +43,8 @@ export class RaceDetailComponent implements OnInit {
                 this.store.dispatch(new GetRaceStatistic((<any>this.race).data.id, this.liveStatistic.runNumber));
             }
         });
+
+        store.select(state => state.countries.locations).subscribe((locations: LocationDto[]) => this.locations = locations)
     }
 
     ngOnInit() {

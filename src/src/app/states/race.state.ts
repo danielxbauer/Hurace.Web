@@ -5,7 +5,7 @@ import { of, combineLatest } from 'rxjs';
 import { RaceDto } from '../dtos';
 import { ApiResource, empty, loading, data, error, RaceStatisticEntry } from '../models';
 import { RaceService } from '../services/race.service';
-import { GetAllRaces, GetRaceById, GetRaceStatistic, SelectRace, GetAllSkiers } from '../actions';
+import { GetAllRaces, GetRaceById, GetRaceStatistic, SelectRace, GetAllSkiers, GetAllLocations } from '../actions';
 import { StatisticService } from '../services/statistic.service';
 import { SkierState } from './skier.state';
 import { mapStatisticDto } from '../util';
@@ -39,8 +39,9 @@ export class RaceState {
     selectRace(context: Context, action: SelectRace) {
         const a = context.dispatch(new GetRaceById(action.id));
         const b = context.dispatch(new GetAllSkiers());
+        const c = context.dispatch(new GetAllLocations());
 
-        return combineLatest(a, b);
+        return combineLatest(a, b, c);
     }
 
     @Action(GetAllRaces)

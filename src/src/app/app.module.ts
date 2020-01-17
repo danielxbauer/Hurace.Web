@@ -43,6 +43,7 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
 import { IconInfoComponent } from './components/shared/icon-info/icon-info.component';
 import { LiveStatisticComponent } from './components/live-statistic/live-statistic.component';
 import { environment } from 'src/environments/environment';
+import { RaceInfoComponent } from './components/shared/race-info/race-info.component';
 
 function initSignalR(liveService: LiveService) {
     return () => liveService.initSignalR();
@@ -67,6 +68,7 @@ function initSignalR(liveService: LiveService) {
         LoadingComponent,
         IconInfoComponent,
         LiveStatisticComponent,
+        RaceInfoComponent,
     ],
     imports: [
         BrowserModule,

@@ -9,18 +9,7 @@
 
             <!-- Running -->
             <div *ngSwitchCase='1'>
-                <div class="d-flex align-items-center">
-                    <div class="mr-2">
-                        <div class="d-flex align-items-center border-2 border-danger text-danger p-1 badge-radius">
-                            <span class="mr-1 bg-danger rounded live-size"></span>
-                            live
-                        </div>
-                    </div>
-
-                    <h1 class="m-0">{{ race.data.name }}</h1>
-                </div>
-
-                <p>{{ race.data.description }}</p>
+                <app-race-info [race]="race.data" [locations]="locations"></app-race-info>
 
                 <!-- Current Skier -->
                 <app-live-statistic *ngIf="showLiveStatistic()"
@@ -32,9 +21,7 @@
 
             <!-- Done -->
             <div *ngSwitchCase='2'>
-                <h1 class="m-0">{{ race.data.name }}</h1>
-                <p>{{ race.data.description }}</p>
-
+                <app-race-info [race]="race.data" [locations]="locations"></app-race-info>
                 <app-tab-nav [links]="navLinks"></app-tab-nav>
                 <router-outlet></router-outlet>
             </div>
